@@ -12,10 +12,33 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.gd.sakila.service.BoardService;
 import com.gd.sakila.vo.Board;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Controller
 public class BoardController {
 	@Autowired
 	BoardService boardService;
+	
+	// 리턴타입 view이름 문자열
+	// 게시판삭제 form
+	@GetMapping("/removeBoard")
+	public String removeBoard(Model model, @RequestParam(value = "boardId", required = true) int boardId) {
+		log.debug("------ >> param : " + boardId);
+		model.addAttribute("boardId", boardId);
+		return "removeBoard";
+	}
+	// 게시판삭제 action
+	@PostMapping("/removeBoard")
+	public String removeBoard(Board board) {
+		int row = boardService.removeBoard(board);
+		log.debug("------ >> removeBoard() : "+row);
+		if(row == 0) {
+			return "redirect:/getBoardOne?boardId="+board.getBoardId(); 
+		}
+		return "redirect:/getBoardList";
+	}
+	
 	
 	// 게시판추가
 	@GetMapping("/addBoard")

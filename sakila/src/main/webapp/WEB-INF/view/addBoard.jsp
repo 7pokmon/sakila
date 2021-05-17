@@ -74,10 +74,9 @@
                     class="form-control" name="staffId" id="staffId" type="text" />
             </div>
             <div>
-                <input class="btn btn-default" id="addButton" type="button"
-                    value="글입력" /> <input class="btn btn-default" type="reset"
-                    value="초기화" /> <a class="btn btn-default"
-                    href="${pageContext.request.contextPath}/getBoardList">글목록</a>
+                <input class="btn btn-default" id="addButton" type="button" value="글입력" />
+                <input class="btn btn-default" type="reset" value="초기화" />
+                <a class="btn btn-default"  href="${pageContext.request.contextPath}/getBoardList">글목록</a>
             </div>
         </form>
     </div>
