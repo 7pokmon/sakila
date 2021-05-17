@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,10 +19,10 @@
     <h1>BOARD ONE</h1>
      <table class="table">
          <tbody>
-             <tr>
+            <tr>
                 <td>board_id :</td>
                 <td>${map.boardId}</td>
-               </tr>
+            </tr>
             <tr>
                    <td>board_title :</td>
                    <td>${map.boardTitle}</td>
@@ -43,6 +44,20 @@
     <a class="btn btn-default" href="${pageContext.request.contextPath}/modifyBoard?boardId=${map.boardId}">수정</a>
     <a class="btn btn-default" href="${pageContext.request.contextPath}/removeBoard?boardId=${map.boardId}">삭제</a>
     <a class="btn btn-default" href="${pageContext.request.contextPath}/getBoardList">글목록</a>
+    <!-- 댓글 목록 -->
+    <div>
+    	<div><a href=""><button type="button">댓글추가</button></a></div>
+    	<table class="table">
+    		<c:forEach var="c" items="${commentList}">
+    			<tr>
+    				<td>${c.commentContent}</td>
+    				<td>${c.username}</td>
+    				<td>${c.insertDate}</td>
+    				<td><a href="" type="button"><button>삭제</button></a></td>
+    			</tr>
+    		</c:forEach>
+    	</table>
+    </div>
 </div>
 </body>
 </html>

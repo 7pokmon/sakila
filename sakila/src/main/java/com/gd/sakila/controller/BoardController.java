@@ -19,12 +19,29 @@ import lombok.extern.slf4j.Slf4j;
 public class BoardController {
 	@Autowired
 	BoardService boardService;
-	
+
 	// 리턴타입 view이름 문자열
+	// 게시판 수정 form
+	@GetMapping("/modifyBoard")
+	public String modifyBoard(Model model, @RequestParam(value = "boardId", required = true) int boardId) {
+		log.debug("------ >> modifyBoard() : "+boardId);
+		// select
+		Map<String, Object> map = boardService.getBoardOne(boardId);
+		model.addAttribute("map", map);
+		return "modifyBoard";
+	}
+	// 게시판 수정 action
+	@PostMapping("/modifyBoard")
+	public String modifyBoard(Board board) {
+		log.debug("------ >> modifyBoard() : "+board.toString());
+		int row = boardService.modifyBoard(board);
+		log.debug("------ >> modifyBoard() : "+row);
+		return "redirect:/getBoardOne?boardId="+board.getBoardId();
+	}
 	// 게시판삭제 form
 	@GetMapping("/removeBoard")
 	public String removeBoard(Model model, @RequestParam(value = "boardId", required = true) int boardId) {
-		log.debug("------ >> param : " + boardId);
+		log.debug("------ >> removeBoard() : " + boardId);
 		model.addAttribute("boardId", boardId);
 		return "removeBoard";
 	}
@@ -54,10 +71,11 @@ public class BoardController {
 	// 상세정보
 	@GetMapping("/getBoardOne")
 	public String getBoardOne(Model model, @RequestParam(value = "boardId", required = true) int boardId) {
-	      Map<String, Object> map = boardService.getBoardOne(boardId);
-	      model.addAttribute("map", map);
-	      
-	      return "getBoardOne";
+		Map<String, Object> map = boardService.getBoardOne(boardId);
+	    log.debug("map : "+map);
+	    model.addAttribute("boardMap", map.get("boardMap"));
+	    model.addAttribute("commentList", map.get("commentList"));
+	    return "getBoardOne";
 	}
 	
 	// 게시판리스트+검색,페이징
