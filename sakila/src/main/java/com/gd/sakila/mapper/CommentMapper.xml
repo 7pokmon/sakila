@@ -13,4 +13,31 @@
 			board_id = #{boardId}
 		ORDER BY insert_date DESC	
 	</select>
+	<!-- board delete transaction -->
+	<delete id="deleteCommentByBoardId" parameterType="Integer">
+		DELETE FROM
+			comment
+		WHERE
+			board_id = #{boardId}
+	</delete>
+	<delete id="deleteCommentByCommentId" parameterType="Integer">
+		DELETE FROM
+			comment
+		WHERE
+			comment_id = #{commentId}
+	</delete>
+	<insert id="insertComment" parameterType="com.gd.sakila.vo.Comment">
+		INSERT INTO
+			comment(
+				board_id,
+				username,
+				comment_content,
+				insert_date
+			) VALUES (
+				#{boardId},
+				#{username},
+				#{commentContent},
+				NOW()
+			)
+	</insert>
 </mapper>

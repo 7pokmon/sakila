@@ -36,17 +36,17 @@ $(document).ready(function(){
 <body>
 	<div class="container">
 		<h1>BOARD MODIFY</h1>
-		<form id="modifyForm" action="${pageContext.request.contextPath}/modifyBoard" method="post">
+		<form id="modifyForm" action="${pageContext.request.contextPath}/admin/modifyBoard" method="post">
 			<table class="table">
 				<tbody>
 					<tr>
 						<td>boardId :</td>
-						<td><input type="text" id="boardId" name="boardId" value="${map.boardId}" readonly="readonly"></td>
+						<td><input type="text" id="boardId" name="boardId" value="${boardMap.boardId}" readonly="readonly"></td>
 					</tr>
 					<tr>
 						<td>boardTitle :</td>
 						<td>
-							<input type="text" id="boardTitle" name="boardTitle" value="${map.boardTitle}">
+							<input type="text" id="boardTitle" name="boardTitle" value="${boardMap.boardTitle}">
 						</td>
 					</tr>
 					<tr>
@@ -58,16 +58,16 @@ $(document).ready(function(){
 					<tr>
 						<td>boardContent :</td>
 						<td>
-							<textarea id="boardContent" name="boardContent" rows="5" cols="80">${map.boardContent}</textarea>
+							<textarea id="boardContent" name="boardContent" rows="5" cols="80">${boardMap.boardContent}</textarea>
 						</td>
 					</tr>
 					<tr>
 						<td>username :</td>
-						<td>${map.username}</td>
+						<td>${boardMap.username}</td>
 					</tr>
 					<tr>
 						<td>insertDate :</td>
-						<td>${map.insertDate}</td>
+						<td>${boardMap.insertDate}</td>
 					</tr>
 				</tbody>
 			</table>

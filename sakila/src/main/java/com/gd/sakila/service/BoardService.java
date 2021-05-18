@@ -21,14 +21,28 @@ public class BoardService {
 	
 	// modifyBoard Service
 	public int modifyBoard(Board board){
-		log.debug("------ >> modifyBoard() : "+board.toString());
+		log.debug("▶▶▶▶▶▶▶▶▶▶▶ modifyBoard() : "+board.toString());
 		return boardMapper.updateBoard(board);
 	}
 	
-	// removeBoard Service
+	// removeBoard Service -> deleteBoard() & deleteCommentByBoardId() transaction
 	public int removeBoard(Board board) {
-		log.debug("------ >> removeBoard() : "+board.toString()); // Board(boardId=?, boardPw=?, boardTitle=null, boardContent=null, staffId=?, insertDate=null, lastUpdate=null)
-		return boardMapper.deleteBoard(board);
+		log.debug("▶▶▶▶▶▶▶▶▶▶▶ removeBoard() : "+board.toString()); // Board(boardId=?, boardPw=?, boardTitle=null, boardContent=null, staffId=?, insertDate=null, lastUpdate=null)
+		
+		//  게시글삭제 FK지정하지않은경우
+		int boardRow = boardMapper.deleteBoard(board);
+		log.debug("▶▶▶▶▶▶▶▶▶▶▶ removeBoard() boardRow : "+boardRow);
+		if(boardRow == 0) {
+			return 0;
+		}
+		
+		//  댓글삭제
+		int commentRow = commentMapper.deleteCommentByBoardId(board.getBoardId());
+		log.debug("▶▶▶▶▶▶▶▶▶▶▶ removeBoard() commentRow : "+commentRow);
+		
+		
+			
+		return boardRow;
 	}
 	
 	// addBoard Service
@@ -41,10 +55,10 @@ public class BoardService {
 		
 		// 1) 상세보기
 		Map<String, Object> boardMap = boardMapper.selectBoardOne(boardId);
-		log.debug("boardMap : "+boardMap);
+		log.debug("▶▶▶▶▶▶▶▶▶▶▶ boardMap : "+boardMap);
 		// 2) 댓글 목록
 		List<Comment> commentList = commentMapper.selectCommentListByBoard(boardId);
-		log.debug("commentList size() : "+commentList.size());
+		log.debug("▶▶▶▶▶▶▶▶▶▶▶ commentList size() : "+commentList.size());
 		
 		Map<String, Object> map = new HashMap<>();
 		map.put("boardMap", boardMap);
@@ -56,7 +70,7 @@ public class BoardService {
 	public Map<String, Object> getBoardList(int currentPage, int rowPerPage, String searchWord) {
 		// 1. 전체페이지 불러와서 마지막페이기 가공
 		int boardTotal = boardMapper.selectBoardTotal(searchWord); // searchWord
-		log.debug(boardTotal+" <--boardTotal");
+		log.debug("▶▶▶▶▶▶▶▶▶▶▶ boardTotal"+boardTotal);
 		
 		int lastPage = (int)(Math.ceil((double)boardTotal / rowPerPage));
 		/*
@@ -72,7 +86,7 @@ public class BoardService {
 		page.setBeginRow((currentPage - 1) * rowPerPage);
 		page.setRowPerPage(rowPerPage);
 		page.setSearchWord(searchWord);
-		log.debug(page+" <--검색어+페이징");
+		log.debug("▶▶▶▶▶▶▶▶▶▶▶ 검색어+페이징"+page);
 		
 		// 3.
 		List<Board> boardList = boardMapper.selectBoardList(page); // Page
