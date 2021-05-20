@@ -1,6 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gd.sakila.mapper.BoardMapper">
+	<insert id="insertBoard" parameterType="com.gd.sakila.vo.Board">
+		<selectKey resultType="Integer" keyProperty="boardId" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		INSERT INTO
+			board(
+				board_pw,
+				board_title,
+				board_content,
+				staff_id,
+				insert_date	
+			)
+			VALUES(
+				PASSWORD(#{boardPw}), <!-- board.getBoardPw() -->
+				#{boardTitle},
+				#{boardContent},
+				#{staffId},
+				NOW()
+			)
+	</insert>
 	<select id="selectBoardList" resultType="com.gd.sakila.vo.Board" parameterType="com.gd.sakila.vo.Page">
 		SELECT
 			board_id boardId,
@@ -43,23 +63,6 @@
 		WHERE
 			board_id = #{boardId}
 	</select>
-	<insert id="insertBoard" parameterType="com.gd.sakila.vo.Board">
-		INSERT INTO
-			board(
-				board_pw,
-				board_title,
-				board_content,
-				staff_id,
-				insert_date	
-			)
-			VALUES(
-				PASSWORD(#{boardPw}), <!-- board.getBoardPw() -->
-				#{boardTitle},
-				#{boardContent},
-				#{staffId},
-				NOW()
-			)
-	</insert>
 	<delete id="deleteBoard" parameterType="com.gd.sakila.vo.Board">
 		DELETE FROM board
 			WHERE 

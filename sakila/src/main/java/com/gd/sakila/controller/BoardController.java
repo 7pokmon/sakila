@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.gd.sakila.service.BoardService;
 import com.gd.sakila.vo.Board;
+import com.gd.sakila.vo.BoardForm;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -65,8 +66,10 @@ public class BoardController {
 		return "addBoard";
 	}
 	@PostMapping("addBoard")
-	public String addBoard(Board board) { // 커맨드객체
-		boardService.addBoard(board);
+	public String addBoard(BoardForm boardForm) { // 커맨드객체
+		log.debug("▶▶▶▶▶▶▶▶▶▶▶ boardForm : "+boardForm);
+		boardService.addBoard(boardForm); // param Board -> BoardForm으로 변경
+		
 		return "redirect:/admin/getBoardList";
 	}
 	
