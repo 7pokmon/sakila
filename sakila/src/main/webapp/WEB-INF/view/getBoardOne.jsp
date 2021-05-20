@@ -38,25 +38,25 @@
     <h1>BOARD VIEW</h1>
      <table class="table">
          <tbody>
-             <tr>
+            <tr>
                 <td>board_id :</td>
                 <td>${boardMap.boardId}</td>
-               </tr>
-            <tr>
-                   <td>board_title :</td>
-                   <td>${boardMap.boardTitle}</td>
             </tr>
             <tr>
-                   <td>board_content :</td>
-                   <td>${boardMap.boardContent}</td>
+                <td>board_title :</td>
+                <td>${boardMap.boardTitle}</td>
             </tr>
             <tr>
-                   <td>username :</td>
-                   <td>${boardMap.username}</td>
+            	<td>board_content :</td>
+            	<td>${boardMap.boardContent}</td>
             </tr>
             <tr>
-                   <td>insert_date :</td>
-                   <td>${boardMap.insertDate}</td>
+                 <td>username :</td>
+                 <td>${boardMap.username}</td>
+            </tr>
+            <tr>
+                 <td>insert_date :</td>
+                 <td>${boardMap.insertDate}</td>
             </tr>
         </tbody>
     </table>
