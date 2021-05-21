@@ -59,12 +59,18 @@
                  <td>${boardMap.insertDate}</td>
             </tr>
             <tr>
-            	<td>boardfile :</td>
+            	<td>boardfile :
+            		<div>
+            			<a href="${pageContext.request.contextPath}/admin/addBoardfile?boardId=${boardMap.boardId}">파일추가</a>
+            		</div>
+            	</td>
             	<!-- boardfile 두개이상 출력될경우를 대비한 반복문 -->
             	<td>
             		<c:forEach var="f" items="${boardfileList}">
             			<div>
             				<a href="${pageContext.request.contextPath}/resource/${f.boardfileName}">${f.boardfileName}</a>
+            				
+            				<a href="${pageContext.request.contextPath}/admin/removeBoardfile?boardfileId=${f.boardfileId}&boardfileName=${f.boardfileName}&boardId=${boardMap.boardId}">파일삭제</a>
             			</div>
             		</c:forEach>
             	</td>
@@ -72,8 +78,6 @@
         </tbody>
     </table>
        <div>
-       	  <a class="btn btn-default" href="">파일추가</a>
-          <a class="btn btn-default" href="${pageContext.request.contextPath}/admin/removeBoardfile">파일삭제</a>
           <a class="btn btn-default" href="${pageContext.request.contextPath}/admin/modifyBoard?boardId=${boardMap.boardId}">글수정</a>
           <a class="btn btn-default" href="${pageContext.request.contextPath}/admin/removeBoard?boardId=${boardMap.boardId}">글삭제</a>
           <a class="btn btn-default" href="${pageContext.request.contextPath}/admin/getBoardList">글목록</a>   

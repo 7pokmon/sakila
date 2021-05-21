@@ -23,12 +23,17 @@
 			
 	</select>
 	<!-- boardfile 선택삭제 -->
-	<delete id="deleteBoardfileOne">
+	<delete id="deleteBoardfileOne"
+			parameterType="Integer">
+		DELETE FROM
+			boardfile
+		WHERE
+			boardfile_id = #{boardfileId}	
 	
 	</delete>
 	<!-- 하나의 게시글에 참조되는 boardfile 전체삭제 -->
 	<delete id="deleteBoardfileByBoardId" 
-			parameterType="integer">
+			parameterType="Integer">
 		DELETE FROM
 			boardfile
 		WHERE
