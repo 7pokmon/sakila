@@ -78,8 +78,9 @@ public class BoardController {
 	public String getBoardOne(Model model, @RequestParam(value = "boardId", required = true) int boardId) {
 		Map<String, Object> map = boardService.getBoardOne(boardId);
 	    log.debug("▶▶▶▶▶▶▶▶▶▶▶ map : "+map);
-	    model.addAttribute("boardMap", map.get("boardMap"));
-	    model.addAttribute("commentList", map.get("commentList"));
+	    model.addAttribute("boardMap", map.get("boardMap")); 			// boardOneList
+	    model.addAttribute("boardfileList", map.get("boardfileList")); 	// boardfileList
+	    model.addAttribute("commentList", map.get("commentList"));		// commentList
 	    return "getBoardOne";
 	}
 	
