@@ -15,4 +15,28 @@
 		AND
 			password = PASSWORD(#{password}) <!-- getPassword() -->	
 	</select>
+	<!-- staff_list view -->
+	<select id="selectStaffList" 
+			parameterType="com.gd.sakila.vo.Page"
+			resultType="com.gd.sakila.vo.StaffList">
+		SELECT
+			ID,
+			name,
+			address,
+			`zip code` zipCode,
+			phone,
+			city,
+			country,
+			SID
+		FROM
+			staff_list
+		<where>
+			<if test="searchWord != null">
+				NAME LIKE CONCAT('%', #{searchWord}, '%')
+			</if>
+		</where>
+		ORDER BY ID ASC
+		LIMIT 
+			#{beginRow}, #{rowPerPage}
+	</select>
 </mapper>

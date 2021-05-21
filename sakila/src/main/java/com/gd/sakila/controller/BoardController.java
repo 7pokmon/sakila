@@ -20,8 +20,7 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 @RequestMapping("/admin")
 public class BoardController {
-	@Autowired
-	BoardService boardService;
+	@Autowired BoardService boardService;
 
 	// 리턴타입 view이름 문자열
 	// 게시판 수정 form
