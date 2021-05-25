@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gd.sakila.mapper.FilmMapper">
+	<!-- nicer_but_slower_film_list view -->
+	<select id="selectFilmList"
+			parameterType="java.util.Map"
+			resultType="java.util.Map">
+		SELECT
+			FID,
+			title,
+			category,
+			price,
+			rating,
+			actors
+		FROM
+			nicer_but_slower_film_list
+		<where>
+			<if test="categoryVal != null">
+				AND category = #{categoryVal}
+			</if>
+			<if test="priceVal != null">
+				AND price = #{priceVal}
+			</if>
+			<if test="ratingVal != null">
+				AND rating = #{ratingVal}
+			</if>
+			<if test="titleVal != null">
+				AND title LIKE CONCAT('%', #{titleVal}, '%')
+			</if>
+			<if test="actorsVal != null">
+				AND actors LIKE CONCAT('%', #{actorsVal}, '%')
+			</if>
+		</where>
+		LIMIT
+			#{beginRow}, #{rowPerPage}
+	</select>
+	<select id="selectFilmTotal"
+			resultType="Integer"
+			parameterType="String">
+		SELECT COUNT(*) FROM nicer_but_slower_film_list
+		<where>
+			<if test="categoryVal != null">
+				AND category = #{categoryVal}
+			</if>
+			<if test="priceVal != null">
+				AND price = #{priceVal}
+			</if>
+			<if test="ratingVal != null">
+				AND rating = #{ratingVal}
+			</if>
+			<if test="titleVal != null">
+				AND title LIKE CONCAT('%', #{titleVal}, '%')
+			</if>
+			<if test="actorsVal != null">
+				AND actors LIKE CONCAT('%', #{actorsVal}, '%')
+			</if>
+		</where>
+	</select>
+	<select id="selectFilmOneByFID"
+			resultType="java.util.Map"
+			parameterType="Integer">
+		SELECT
+			FID,
+			title,
+			description,
+			category,
+			price,
+			length,
+			rating,
+			actors
+		FROM
+			nicer_but_slower_film_list
+		WHERE
+			FID = #{FID}			
+	</select>
+	<!-- 프로시저 사용문법 -->
+	<!-- Map : filmId, 		(IN)
+			   storeId, 	(IN)
+			   filmCount  	(OUT)
+	-->
+	<select id="selectFilmInStock"
+			parameterType="java.util.Map"
+			resultType="Integer"
+			statementType="CALLABLE">
+		{
+			call film_in_stock(
+				#{filmId},
+				#{storeId},
+				#{filmCount, mode=OUT, jdbcType=DECIMAL, javaType=Integer}
+			)
+		}
+	</select>
+	<select id="selectRatingList"
+			resultType="String">
+		SELECT
+			DISTINCT rating
+		FROM
+			nicer_but_slower_film_list
+		ORDER BY rating ASC
+	</select>
+	<select id="selectPriceList"
+			resultType="String">
+		SELECT
+			DISTINCT price
+		FROM
+			nicer_but_slower_film_list
+		ORDER BY price ASC
+	</select>
+</mapper>
