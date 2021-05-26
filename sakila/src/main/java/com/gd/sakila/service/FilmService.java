@@ -40,16 +40,16 @@ public class FilmService {
 		Map<String, Object> paramMap = new HashMap<>();
 		paramMap.put("filmId", filmId); 				// 프로시저 in 매개변수
 		paramMap.put("storeId", storeId);				//프로시저 in 매개변수
-		int filmCount = 0;//프로시저 out 매개변수
+		int filmCount = 0;								//프로시저 out 매개변수
 		paramMap.put("filmCount", filmCount);
 		
-		List<Integer> list = filmMapper.selectFilmInStock(paramMap);// 프로시저 실행
-		filmCount = (int) paramMap.get("filmCount");// 프로시저에서 out매개변수 filmCount 추출
+		List<Integer> list = filmMapper.selectFilmInStock(paramMap);	// 프로시저 실행
+		filmCount = (int) paramMap.get("filmCount");					// 프로시저에서 out매개변수 filmCount 추출
 		log.debug(" filmCount :"+filmCount);
 		log.debug(" list :"+list);
 			
-			return filmCount;
-		}
+		return filmCount;
+	}
 	
 	
 	// getFilmList Service
