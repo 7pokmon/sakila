@@ -59,19 +59,23 @@
 	<select id="selectFilmOneByFID"
 			resultType="java.util.Map"
 			parameterType="Integer">
-		SELECT
-			FID,
-			title,
-			description,
-			category,
-			price,
-			length,
-			rating,
-			actors
-		FROM
-			nicer_but_slower_film_list
-		WHERE
-			FID = #{FID}			
+		SELECT 
+			f.film_id filmId,
+			f.description,
+			f.release_year releaseYear,
+			f.language_id languageId,
+			f.rental_duration rentalDuration,
+			f.rental_rate rentalRate,
+			f.length,
+			f.replacement_cost replacementCost,
+			f.rating,
+			f.special_features specialFeatures,
+			f.last_update lastUpdate,
+			n.actors actors
+		FROM film f 
+		LEFT JOIN nicer_but_slower_film_list n 
+		ON f.film_id=n.FID 
+   		WHERE film_id = #{FID}
 	</select>
 	<!-- 프로시저 사용문법 -->
 	<!-- Map : filmId, 		(IN)

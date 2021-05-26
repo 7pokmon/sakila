@@ -19,7 +19,7 @@
 	<h1>GET ACTOR LIST</h1>
 	 <!-- 검색어 입력창 -->
     <form action="/admin/getActorList" method="get">
-        <label for="searchWord">검색어(${searchWord}) :</label> 
+        <label for="searchWord">검색어(배우) :</label> 
         <input name="searchWord" type="text" value="${searchWord}">
         <button type="submit">검색</button>
     </form>
@@ -41,6 +41,9 @@
 			</c:forEach>
 		</tbody>
 	</table>
+	<div>
+        <a class="btn btn-default" href="${pageContext.request.contextPath}/admin/addActor">배우 입력</a>
+    </div>
 	<ul class="pager">
         <c:if test="${currentPage > 1}">
             <li class="previous"><a href="${pageContext.request.contextPath}/admin/getActorList?currentPage=${currentPage-1}&searchWord=${searchWord}">이전</a></li>
@@ -49,9 +52,6 @@
             <li class="next"><a href="${pageContext.request.contextPath}/admin/getActorList?currentPage=${currentPage+1}&searchWord=${searchWord}">다음</a></li>
         </c:if>
     </ul>
-    <div>
-        <a class="btn btn-default" href="${pageContext.request.contextPath}/admin/addActor">배우 추가</a>
-    </div>
 </div> 
 </body>
 </html>

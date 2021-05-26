@@ -23,36 +23,52 @@
 	</div>
 	<table class="table">
 		<tr>
-			<td>FID : </td>	
-			<td>${filmOne.FID}</td>
-		</tr>
-		<tr>
-			<td>title : </td>	
-			<td>${filmOne.title}</td>
+			<td>filmId : </td>	
+			<td>${filmOne.filmId}</td>
 		</tr>
 		<tr>
 			<td>description : </td>	
 			<td>${filmOne.description}</td>
 		</tr>
 		<tr>
-			<td>category : </td>	
-			<td>${filmOne.category}</td>
+			<td>actors : </td>	
+			<td>${filmOne.actors}</td>
 		</tr>
 		<tr>
-			<td>price : </td>	
-			<td>${filmOne.price}</td>
+			<td>releaseYear : </td>	
+			<td>${filmOne.releaseYear}</td>
+		</tr>
+		<tr>
+			<td>languageId : </td>	
+			<td>${filmOne.languageId}</td>
+		</tr>
+		<tr>
+			<td>rentalDuration : </td>	
+			<td>${filmOne.rentalDuration}</td>
+		</tr>
+		<tr>
+			<td>rentalRate : </td>	
+			<td>${filmOne.rentalRate}</td>
 		</tr>
 		<tr>
 			<td>length : </td>	
 			<td>${filmOne.length}</td>
 		</tr>
 		<tr>
+			<td>replacementCost : </td>	
+			<td>${filmOne.replacementCost}</td>
+		</tr>
+		<tr>
 			<td>rating : </td>	
 			<td>${filmOne.rating}</td>
 		</tr>
 		<tr>
-			<td>actors : </td>	
-			<td>${filmOne.actors}</td>
+			<td>specialFeatures : </td>	
+			<td>${filmOne.specialFeatures}</td>
+		</tr>
+		<tr>
+			<td>lastUpdate : </td>	
+			<td>${filmOne.lastUpdate}</td>
 		</tr>
 	</table>
 	<a class="btn btn-default" href="${pageContext.request.contextPath}/admin/getFilmList">돌아가기</a>

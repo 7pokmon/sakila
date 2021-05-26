@@ -52,10 +52,10 @@ $(document).ready(function() {
 	<h1>ADD ACTOR</h1>
 	<form id="addForm" action="${pageContext.request.contextPath}/admin/addActor" method="post">
 		<div>
-			first_name : <input name="firstName" type="text">
+			first_name : <input id="firstName" name="firstName" type="text">
 		</div>
 		<div>
-			last_name :  <input name="lastName" type="text">
+			last_name :  <input id="lastName" name="lastName" type="text">
 		</div>
 		<button class="btn btn-default" id="btn" type="button">ADD</button>
 	</form>
