@@ -22,6 +22,35 @@ public class FilmService {
 	@Autowired FilmMapper filmMapper;
 	@Autowired CategoryMapper categoryMapper;
 	
+	// actorCheckBox List Service
+	public Map<String, Object> selectActorList(int FID){
+		log.debug("▶▶▶▶▶▶▶▶▶▶▶ FID : "+FID);
+		
+		List<Map<String, Object>> actorList = filmMapper.selectActorList(FID);
+		log.debug("▶▶▶▶▶▶▶▶▶▶▶ actorList : "+actorList);
+		
+		Map<String, Object> returnMap = new HashMap<>();
+		returnMap.put("actorList", actorList);
+		return returnMap;
+	}
+	
+	// Delete & Insert checkActor Service
+	public int modifyCheckActor(int[] ck, int FID) {
+		log.debug("▶▶▶▶▶▶▶▶▶▶▶ FID : "+FID);
+		log.debug("▶▶▶▶▶▶▶▶▶▶▶ ck.length : "+ck.length);
+		
+		int checkRow = filmMapper.deleteCheckActor(FID);
+		log.debug("▶▶▶▶▶▶▶▶▶▶▶ checkRow :"+checkRow);
+		if(checkRow != 0) {
+			for(int i=0; i<ck.length; i++) {
+				log.debug("▶▶▶▶▶▶▶▶▶▶▶ actorId(ck)주입 : "+ck[i]);
+				filmMapper.insertCheckActor(ck[i], FID);
+			}
+		}
+		
+		return checkRow;
+	}
+	
 	// getFilmOne Service
 	public Map<String, Object> getFilmOne(int FID){
 		

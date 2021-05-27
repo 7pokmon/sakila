@@ -73,9 +73,10 @@
 			f.last_update lastUpdate,
 			n.actors actors
 		FROM film f 
-		LEFT JOIN nicer_but_slower_film_list n 
-		ON f.film_id=n.FID 
-   		WHERE film_id = #{FID}
+			LEFT JOIN nicer_but_slower_film_list n 
+			ON f.film_id=n.FID 
+   		WHERE 
+   			film_id = #{FID}
 	</select>
 	<!-- 프로시저 사용문법 -->
 	<!-- Map : filmId, 		(IN)
@@ -110,4 +111,38 @@
 			nicer_but_slower_film_list
 		ORDER BY price ASC
 	</select>
+	<!-- 배우리스트 체크박스 O, X -->
+	<select id="selectActorList"
+			resultType="java.util.Map"
+			parameterType="Integer">
+		SELECT 
+			a.actor_id actorId, 
+			CONCAT(first_name, ' ', last_name) name, 
+			film_id filmId
+		FROM 
+			actor a 
+				LEFT JOIN (SELECT *
+							FROM film_actor
+							WHERE film_id = #{FID}) t
+		ON a.actor_id = t.actor_id	
+		ORDER BY first_name ASC
+	</select>
+	<delete id="deleteCheckActor"
+			parameterType="java.util.Map">
+		DELETE FROM 
+			film_actor 
+		WHERE 
+			film_id = #{FID}	
+	</delete>
+	<insert id="insertCheckActor"
+			parameterType="java.util.Map">
+		INSERT INTO 
+			film_actor(
+				actor_id,
+				film_id
+			) VALUES(
+				#{ck},
+				#{FID}
+			)
+	</insert>
 </mapper>

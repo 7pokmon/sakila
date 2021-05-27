@@ -1,6 +1,7 @@
 package com.gd.sakila.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -20,6 +21,35 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/admin")
 public class FlimController {
 	@Autowired FilmService filmService;
+	
+	// 배우 체크박스 리스트
+	@GetMapping("/getCheckActorList")
+	public String getAddActorList(Model model,
+									@RequestParam(value = "FID", required = true) int FID) {
+		log.debug("▶▶▶▶▶▶▶▶▶▶▶ FID : "+FID);
+		
+		Map<String, Object> map = filmService.selectActorList(FID);
+		model.addAttribute("actorList", map.get("actorList"));
+		model.addAttribute("FID", FID); // 상세정보 돌아가기
+		
+		return "getCheckActorList";
+	}
+	@PostMapping("modifyCheckActor")
+	public String modifyCheckActor(@RequestParam(value = "FID", required = true) int FID,
+									@RequestParam(value = "ck") int[] ck) {
+		log.debug("▶▶▶▶▶▶▶▶▶▶▶ FID : "+FID);
+		log.debug("▶▶▶▶▶▶▶▶▶▶▶ checked ck.length : "+ck.length);
+		// service - mapper
+		// DELETE FROM film_actor WHERE film_id = #{FID}
+		/* 
+		 for(int i=0; i<${ck.length}; i++){
+				INSERT INTO(actor_id, film_id) VALUES(#{ck[i]}, #{FID})
+			}
+		*/		
+		filmService.modifyCheckActor(ck, FID);
+		
+		return "redirect:/admin/getFilmOne?FID="+FID;
+	}
 	
 	// 영화 상세보기+프로시저
 	@GetMapping("getFilmOne")

@@ -90,7 +90,6 @@
                 <th>category</th>
                 <th>price</th>
                 <th>rating</th>
-                <th>actors</th>
             </tr>
         </thead>
         <tbody>
@@ -101,7 +100,6 @@
         			<td>${f.category}</td>
         			<td>${f.price}</td>
         			<td>${f.rating}</td>
-        			<td>${f.actors}</td>
         		</tr>
         	</c:forEach>
         </tbody>

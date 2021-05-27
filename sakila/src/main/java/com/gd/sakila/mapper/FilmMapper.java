@@ -17,4 +17,7 @@ public interface FilmMapper {
 	List<Integer> selectFilmInStock(Map<String, Object> map);			// 프로시저
 	List<String> selectRatingList(); 									// 등급리스트
 	List<String> selectPriceList(); 									// 가격리스트
+	List<Map<String, Object>> selectActorList(int FID);
+	int deleteCheckActor(int FID);
+	int insertCheckActor(int ck, int FID);
 }

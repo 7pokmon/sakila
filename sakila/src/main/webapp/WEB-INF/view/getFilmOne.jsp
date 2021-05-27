@@ -31,7 +31,11 @@
 			<td>${filmOne.description}</td>
 		</tr>
 		<tr>
-			<td>actors : </td>	
+			<td>actors : 
+				<div>
+					<a href="${pageContext.request.contextPath}/admin/getCheckActorList?FID=${filmOne.filmId}">modify actors</a>
+				</div>
+			</td>	
 			<td>${filmOne.actors}</td>
 		</tr>
 		<tr>

@@ -26,6 +26,7 @@ public class ActorService {
 		return actorMapper.insertActor(actor);
 	}
 	
+	// actorInfo Service
 	public Map<String, Object> selectActorInfoList(int currentPage, int rowPerPage, String searchWord) {
 		// 전체페이지 불러와서 마지막페이지 가공
 		int actorInfoTotal = actorMapper.selectActorInfoTotal(searchWord);
@@ -47,4 +48,5 @@ public class ActorService {
 		
 		return returnMap;
 	}
+	
 }
