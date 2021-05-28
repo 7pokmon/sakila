@@ -5,7 +5,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.gd.sakila.service.CategoryService;
 import com.gd.sakila.service.FilmService;
+import com.gd.sakila.service.LanguageService;
+import com.gd.sakila.vo.Category;
+import com.gd.sakila.vo.FilmForm;
+import com.gd.sakila.vo.Language;
 
 import java.util.List;
 import java.util.Map;
@@ -21,10 +26,37 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/admin")
 public class FlimController {
 	@Autowired FilmService filmService;
+	@Autowired LanguageService languageService;
+	@Autowired CategoryService categoryService;
+	
+	// 영화 추가 form
+	@GetMapping("addFilm")
+	public String addFilm(Model model) {
+		// categoryList
+		// ratingList
+		// languageList
+		List<Category> categoryList = categoryService.getCategoryList();
+		List<Language> languageList = languageService.getLanguageList();
+	
+		
+		model.addAttribute("categoryList", categoryList);
+		model.addAttribute("languageList", languageList);
+		
+		return "addFilm";
+	}
+	
+	// 영화 추가 action
+	@PostMapping("/addFilm")													// 기본(값)타입 매개변수의 이름과 name이 같으면 맵핑
+	public String addFilm(FilmForm filmForm) {									// 참조타입은 필드명과 name이 같은면 맵핑
+		int filmId = filmService.addFilm(filmForm);
+		
+		return "redirect:/admin/getFilmOne?FID="+filmId;
+	}
+	
 	
 	// 배우 체크박스 리스트
 	@GetMapping("/getCheckActorList")
-	public String getAddActorList(Model model,
+	public String getCheckActorList(Model model,
 									@RequestParam(value = "FID", required = true) int FID) {
 		log.debug("▶▶▶▶▶▶▶▶▶▶▶ FID : "+FID);
 		
@@ -34,6 +66,7 @@ public class FlimController {
 		
 		return "getCheckActorList";
 	}
+	// 출연배우 수정 (삭제후 추가)
 	@PostMapping("modifyCheckActor")
 	public String modifyCheckActor(@RequestParam(value = "FID", required = true) int FID,
 									@RequestParam(value = "ck") int[] ck) {
@@ -43,7 +76,7 @@ public class FlimController {
 		// DELETE FROM film_actor WHERE film_id = #{FID}
 		/* 
 		 for(int i=0; i<${ck.length}; i++){
-				INSERT INTO(actor_id, film_id) VALUES(#{ck[i]}, #{FID})
+				INSERT INTO(actor_id, film_id) VALUES(#{ck}, #{FID})
 			}
 		*/		
 		filmService.modifyCheckActor(ck, FID);
@@ -123,23 +156,4 @@ public class FlimController {
 
 		return "getFilmList";
 	}
-	/*
-	public String getFilmList(Model model,
-								@RequestParam(value="currentPage", defaultValue = "1") int currentPage,
-								@RequestParam(value="rowPerPage", defaultValue = "10") int rowPerPage,
-								@RequestParam(value="searchWord", required = false) String searchWord) {
-		log.debug("▶▶▶▶▶▶▶▶▶▶▶ currentPage : "+currentPage);
-		log.debug("▶▶▶▶▶▶▶▶▶▶▶ rowPerPage : "+rowPerPage);
-		log.debug("▶▶▶▶▶▶▶▶▶▶▶ searchWord : "+searchWord);
-		
-		Map<String, Object> map = filmService.getFilmList(currentPage, rowPerPage, searchWord);
-		
-		model.addAttribute("currentPage", currentPage);
-		model.addAttribute("searchWord", searchWord);
-		model.addAttribute("lastPage", map.get("lastPage"));
-		model.addAttribute("filmList", map.get("filmList"));
-		
-		return "getFilmList";
-	}
-	*/
 }

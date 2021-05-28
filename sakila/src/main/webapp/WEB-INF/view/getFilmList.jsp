@@ -37,12 +37,12 @@
 		category : 
 		<select name="categoryVal">
 			<option value="">select category</option>
-			<c:forEach var="name" items="${categoryNameList}">
-				<c:if test="${name == categoryVal}">
-					<option value="${name}" selected="selected">${name}</option>	<!-- 선택된 Val 검색시 선택상태로 유지 -->
+			<c:forEach var="c" items="${categoryNameList}">
+				<c:if test="${c.name == categoryVal}">
+					<option value="${c.name}" selected="selected">${c.name}</option>	<!-- 선택된 Val 검색시 선택상태로 유지 -->
 				</c:if>
-				<c:if test="${name != categoryVal}">
-					<option value="${name}">${name}</option>
+				<c:if test="${c.name != categoryVal}">
+					<option value="${c.name}">${c.name}</option>
 				</c:if>
 			</c:forEach>
 		</select>
@@ -114,6 +114,7 @@
         </c:if>
     </ul>
     <div>
+    	<a class="btn btn-default" href="${pageContext.request.contextPath}/admin/addFilm">addFilm</a>
 		<a class="btn btn-default" href="${pageContext.request.contextPath}/home">돌아가기</a>
 	</div>
 </div>	

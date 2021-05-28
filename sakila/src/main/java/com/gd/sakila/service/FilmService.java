@@ -10,7 +10,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.gd.sakila.mapper.CategoryMapper;
 import com.gd.sakila.mapper.FilmMapper;
+
+import com.gd.sakila.vo.Category;
+import com.gd.sakila.vo.Film;
+import com.gd.sakila.vo.FilmForm;
 import com.gd.sakila.vo.FilmList;
+import com.gd.sakila.vo.Language;
 import com.gd.sakila.vo.Page;
 
 import lombok.extern.slf4j.Slf4j;
@@ -21,6 +26,25 @@ import lombok.extern.slf4j.Slf4j;
 public class FilmService {
 	@Autowired FilmMapper filmMapper;
 	@Autowired CategoryMapper categoryMapper;
+	
+	// addFilm+category(트랜잭션) Service
+	public int addFilm(FilmForm filmForm) {
+		
+		/*
+		 * 	param: film입력폼
+		 * 	return : 입력된 filmId값
+		 */
+		Film film = filmForm.getFilm();
+		filmMapper.insertFilm(film); // filmId가 생성된후 film.setFilmId(생성된 값) 호출
+		
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("categoryId", filmForm.getCategory().getCategoryId());
+		paramMap.put("filmId", film.getFilmId());
+		
+		filmMapper.insertFilmCategory(paramMap);
+		
+		return film.getFilmId(); // 방금입력(생성된)된FilmId
+	}
 	
 	// actorCheckBox List Service
 	public Map<String, Object> selectActorList(int FID){
@@ -120,7 +144,7 @@ public class FilmService {
 		int lastPage = (int)(Math.ceil((double)filmTotal / rowPerPage));
 		log.debug("▶▶▶▶▶▶▶▶▶▶▶ lastPage : "+lastPage);
 		
-		List<String> categoryNameList = categoryMapper.selectCategoryNameList();
+		List<Category> categoryNameList = categoryMapper.selectCategoryNameList();
 		List<String> ratingList = filmMapper.selectRatingList();
 		List<String> priceList = filmMapper.selectPriceList();
 		

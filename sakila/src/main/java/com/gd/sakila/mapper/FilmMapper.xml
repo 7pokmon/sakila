@@ -1,6 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gd.sakila.mapper.FilmMapper">
+	
+	<insert id="insertFilm" 
+			parameterType="com.gd.sakila.vo.Film">
+		<selectKey keyProperty="filmId" resultType="Integer" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		INSERT INTO 
+			film(
+				title,
+				description,
+				release_year,
+				language_id,
+				original_language_id,
+				rental_duration,
+				rental_rate,
+				length,
+				replacement_cost,
+				rating,
+				special_features
+			) VALUES (
+				#{title},
+				#{description},
+				#{releaseYear},
+				#{languageId},
+				#{originalLanguageId},
+				#{rentalDuration},
+				#{rentalRate},
+				#{length},
+				#{replacementCost},
+				#{rating},
+				#{specialFeatures}
+			)
+			
+	</insert>
+	<insert id="insertFilmCategory"
+			parameterType="java.util.Map">
+		INSERT INTO
+			film_category(
+				film_id,
+				category_id
+			) VALUES (
+				#{filmId},
+				#{categoryId}
+			)
+	</insert>
+	
 	<!-- nicer_but_slower_film_list view -->
 	<select id="selectFilmList"
 			parameterType="java.util.Map"
@@ -31,6 +77,7 @@
 				AND actors LIKE CONCAT('%', #{actorsVal}, '%')
 			</if>
 		</where>
+		ORDER BY FID DESC
 		LIMIT
 			#{beginRow}, #{rowPerPage}
 	</select>
@@ -118,7 +165,7 @@
 		SELECT 
 			a.actor_id actorId, 
 			CONCAT(first_name, ' ', last_name) name, 
-			film_id filmId
+			IF(t.actor_id IS NULL, 'X', 'O') ck
 		FROM 
 			actor a 
 				LEFT JOIN (SELECT *

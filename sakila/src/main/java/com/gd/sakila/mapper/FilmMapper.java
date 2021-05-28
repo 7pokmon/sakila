@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.gd.sakila.vo.Film;
 import com.gd.sakila.vo.FilmList;
 import com.gd.sakila.vo.Page;
 
@@ -15,9 +16,14 @@ public interface FilmMapper {
 	Map<String, Object> selectFilmOneByFID(int FID);					// 상세보기
 	int selectFilmTotal(Map<String, Object> map);						// 전체페이지수
 	List<Integer> selectFilmInStock(Map<String, Object> map);			// 프로시저
+	
 	List<String> selectRatingList(); 									// 등급리스트
 	List<String> selectPriceList(); 									// 가격리스트
+	
 	List<Map<String, Object>> selectActorList(int FID);
 	int deleteCheckActor(int FID);
 	int insertCheckActor(int ck, int FID);
+	
+	int insertFilm(Film film);
+	int insertFilmCategory(Map<String, Object> map);
 }

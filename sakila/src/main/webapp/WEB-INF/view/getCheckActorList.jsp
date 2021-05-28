@@ -23,10 +23,10 @@
 		     <c:forEach var="a" items="${actorList}">
 			 	<c:set var="i" value="${i + 1}" />
 			    	<td>
-				    	<c:if test="${a.filmId == null}">
+				    	<c:if test="${a.ck == 'X'}">
 							<input type="checkbox" name="ck" value="${a.actorId}">
 						</c:if>
-						<c:if test="${a.filmId != null}">
+						<c:if test="${a.ck == 'O'}">
 							<input type="checkbox" name="ck" checked="checked" value="${a.actorId}">
 						</c:if>
 							<span style="color:red;">${a.name.substring(0, 1)}</span>${a.name.substring(1)}&nbsp;
@@ -40,6 +40,9 @@
 		</table>
 		<button class="btn btn-default" type="submit">출연배우 수정</button>
 	</form>
+	
+	
+	
 	<a class="btn btn-default" href="${pageContext.request.contextPath}/admin/getFilmOne?FID=${FID}">돌아가기</a>
 </div>	
 </body>
