@@ -23,7 +23,7 @@
 			actor_info
 		<where>
 			<if test="searchWord != null">
-				first_name LIKE CONCAT('%',#{searchWord},'%') OR last_name LIKE CONCAT('%',#{searchWord},'%') 
+				first_name LIKE CONCAT('%',#{searchWord},'%') OR last_name LIKE CONCAT('%',#{searchWord},'%')
 			</if>
 		</where>
 		ORDER BY actor_id DESC

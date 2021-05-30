@@ -10,4 +10,117 @@
         SET c.active = 0
 		WHERE c.customer_id = A.customer_id
 	</update>
+	<select id="selectCustomerTotal"
+			resultType="Integer"
+			parameterType="java.util.Map">
+		SELECT COUNT(*) FROM customer
+		<where>
+        <if test="searchWord != null and searchWord !='' ">
+       		AND CONCAT(first_name, ' ' , last_name) LIKE CONCAT('%', #{searchWord}, '%')
+        </if>
+        <if test="storeId != null and storeId !=''">
+        	AND store_id = ${storeId}
+        </if>
+      </where>
+	</select>
+	<!-- 고객리스트 + 조건에맞는 blackList, vipList -->
+	<select id="selectCustomerList"
+			resultType="java.util.Map"
+			parameterType="java.util.Map">
+		SELECT 
+			customer_id customerId,
+	   		CONCAT(first_name, ' ' , last_name) name, 
+	   		email,
+	   		store_id storeId,
+   			
+   			<!-- blackList  -->
+   			if(customer_id 
+   				IN(
+   					SELECT p.customer_id
+                    FROM payment p 
+                    LEFT JOIN rental r 
+                   		ON p.rental_id=r.rental_id 
+                   	JOIN inventory i 
+                    	ON r.inventory_id=i.inventory_id 
+			        JOIN film f 
+			        	ON i.film_id=f.film_id
+                    <!-- 반납기간이 렌탈기간을 초과한 -->
+                    WHERE DATEDIFF(r.return_date, r.rental_date) > f.rental_duration
+                    	GROUP BY p.customer_id
+            			<!-- 횟수가 10회가 넘어간 고객ID BLACK표시, 아니면 ''-->
+            			HAVING COUNT(p.customer_id) >= 10), 'BLACK', '') blackList,
+ 			<!-- VIP -->
+   			if(customer_id 
+   				IN(
+   					SELECT p.customer_id
+           			FROM payment AS p
+                    <!-- 한달에 5회이상, 10달러이상 사용한 고객 VIP표시 아니면 '' -->
+                    WHERE 
+                    	DATE(p.payment_date) BETWEEN DATE_SUB('2005-05-01', INTERVAL 1 MONTH) AND '2005-06-01'
+                    	GROUP BY customer_id
+                     	HAVING SUM(p.amount) > 10
+                    AND 
+                    	COUNT(customer_id) > 5), 'VIP','') vipList
+		FROM 
+			customer
+		<where>
+	        <if test="searchWord != null and searchWord !='' ">
+	        	AND CONCAT(first_name, ' ' , last_name) LIKE CONCAT('%', #{searchWord}, '%')
+	        </if>
+	        <if test="storeId != null and storeId !='' ">
+	        	AND store_id = ${storeId}
+	        </if>
+      	</where>
+		LIMIT
+  			${beginRow}, ${rowPerPage}
+	</select>
+	<!-- 고객상세정보+총 구매금액 -->
+	<select id="selectCustomerOneById"
+			resultType="java.util.Map"
+			parameterType="Integer">
+		SELECT 
+	      	p.customer_id customerId, 
+			cl.SID storeId,
+			cl.name name, 
+			SUM(p.amount) sumAmount, 
+			cl.country country, 
+			cl.city city, 
+			cl.address address, 
+			cl.phone phone,
+			cl.notes active 
+   		FROM 
+   			payment p
+      	LEFT JOIN customer_list cl 
+      		ON cl.ID = p.customer_id
+      	WHERE 
+      		customer_id = #{customerId}
+		GROUP BY p.customer_id
+	</select>
+	<!-- 고객별 대여리스트 -->
+	<select id="selectRentalListByCustomer"
+			resultType="java.util.Map"
+			parameterType="Integer">
+		
+		SELECT 
+			r.rental_id rentalId,
+			f.film_id FID,
+			f.title title, 
+			r.rental_date rentalDate, 
+			r.return_date returnDate,
+			<!-- 반환된 기록이 없으면 해당영화의 대여기간 출력, 있으면 '' -->
+			if( (r.return_date IS NULL) ,f.rental_duration,'') filmDuration,
+			<!-- (현재 - 렌탈기간) - 대여기간 출력 -->
+			DATEDIFF(CURRENT_DATE(), r.rental_date)-f.rental_duration overdueDate,
+			<!-- 반납일이 초과한경우 T, 아니면 '' -->
+			if(r.return_date IS NULL AND DATEDIFF(CURRENT_DATE(), r.rental_date) > f.rental_duration , 'T', '') overdue
+			
+		FROM 
+			rental r 
+		LEFT JOIN inventory i 
+			ON r.inventory_id = i.inventory_id 
+		JOIN film f 
+			ON f.film_id = i.film_id 
+		WHERE 
+			customer_id = #{customerId} 
+	</select>
 </mapper>
