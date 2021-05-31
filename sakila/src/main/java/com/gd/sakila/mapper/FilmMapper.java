@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.gd.sakila.vo.Film;
+import com.gd.sakila.vo.FilmForm;
 import com.gd.sakila.vo.FilmList;
 import com.gd.sakila.vo.Page;
 
@@ -26,4 +27,11 @@ public interface FilmMapper {
 	
 	int insertFilm(Film film);
 	int insertFilmCategory(Map<String, Object> map);
+	
+	int updateFilm(Film film);
+	int updateFilmCategory(Map<String, Object> map);
+	
+	int deleteFilmActor(int filmId);
+	int deleteFilmCategory(int filmId);
+	int deleteFilm(int filmId);
 }

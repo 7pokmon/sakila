@@ -56,6 +56,8 @@
      	<h3>영화 대여 기록</h3>
      	<table class="table table-striped">
      		<tr>
+     			<td>rentalId</td>
+     			<td>inventoryId</td>
      			<td>title</td>
      			<td>rentalDate</td>
      			<td>returnDate</td>
@@ -63,6 +65,8 @@
      		</tr>
      		<c:forEach var="r" items="${rentalListByCustomer}">
      			<tr>
+     				<td>${r.rentalId}</td>
+     				<td>${r.inventoryId}</td>
      				<td><a href="${pageContext.request.contextPath}/admin/getFilmOne?FID=${r.FID}">${r.title}</a></td>
      				<td>${r.rentalDate}</td>
      				<td>${r.returnDate}</td>

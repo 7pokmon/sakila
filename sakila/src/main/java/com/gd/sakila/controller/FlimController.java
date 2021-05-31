@@ -27,10 +27,37 @@ import lombok.extern.slf4j.Slf4j;
 public class FlimController {
 	@Autowired FilmService filmService;
 	@Autowired LanguageService languageService;
-	@Autowired CategoryService categoryService;
+	@Autowired CategoryService categoryService;	
+	
+	// 영화 수정 form
+	@GetMapping("/modifyFilm")
+	public String modifyFilm(Model model,
+								@RequestParam(value = "filmId", required = true) int filmId) {
+		log.debug("▶▶▶▶▶▶▶▶▶▶▶ filmId : "+filmId);
+		
+		Map<String, Object> filmOne = filmService.getFilmOne(filmId);
+		List<Category> categoryList = categoryService.getCategoryList();
+		log.debug("▶▶▶▶▶▶▶▶▶▶▶ filmOne : "+filmOne);
+		log.debug("▶▶▶▶▶▶▶▶▶▶▶ categoryList : "+categoryList);
+		
+		model.addAttribute("filmId", filmId);
+		model.addAttribute("categoryList", categoryList);
+		model.addAttribute("filmOne", filmOne);
+		
+		return "modifyFilm";
+	}
+	// 영화 수정 action
+	@PostMapping("/modifyFilm")
+	public String modifyFilm(FilmForm filmForm) {
+		log.debug("▶▶▶▶▶▶▶▶▶▶▶ filmForm : "+filmForm);
+		int filmId = filmService.modifyFilm(filmForm);
+		
+		return "redirect:/admin/getFilmOne?FID="+filmId;
+	}
+	
 	
 	// 영화 추가 form
-	@GetMapping("addFilm")
+	@GetMapping("/addFilm")
 	public String addFilm(Model model) {
 		// categoryList
 		// ratingList

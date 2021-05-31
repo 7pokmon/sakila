@@ -24,6 +24,7 @@ public class CustomerService {
 		log.debug("▶▶▶▶▶▶▶▶▶▶▶ 휴면고객 처리 행수 : "+row);
 	}
 	
+	// 고객List Service (black,vip list)
 	public Map<String, Object> getCustomerList(Map<String, Object> paramMap) {
 		log.debug("currentPage : "+paramMap.get("currentPage"));
 		log.debug("rowPerPage : "+paramMap.get("rowPerPage"));

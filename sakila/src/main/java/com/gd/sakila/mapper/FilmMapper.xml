@@ -108,6 +108,7 @@
 			parameterType="Integer">
 		SELECT 
 			f.film_id filmId,
+			f.title title,
 			f.description,
 			f.release_year releaseYear,
 			f.language_id languageId,
@@ -192,4 +193,39 @@
 				#{FID}
 			)
 	</insert>
+	<update id="updateFilm"
+			parameterType="com.gd.sakila.vo.FilmForm">
+		UPDATE film
+			SET 
+				title = #{title},
+				description = #{description},
+				length = #{length},
+				rating = #{rating},
+				rental_rate = #{rentalRate}
+			WHERE 
+				film_id = #{filmId}
+	</update>
+	<update id="updateFilmCategory"
+			parameterType="com.gd.sakila.vo.FilmForm">
+		UPDATE film_category
+			SET
+				category_id = #{categoryId}
+			WHERE 
+				film_id = #{filmId}
+	</update>
+	<delete id="deleteFilmActor">
+		DELETE FROM film_actor
+		WHERE
+			film_id = #{filmId}
+	</delete>
+	<delete id="deleteFilmCategory">
+		DELETE FROM film_category
+		WHERE
+			film_id = #{filmId}
+	</delete>
+	<delete id="deleteFilm">
+		DELETE FROM film
+		WHERE
+			film_id = #{filmId}
+	</delete>
 </mapper>
