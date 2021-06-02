@@ -8,7 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.gd.sakila.mapper.AddressMapper;
 import com.gd.sakila.mapper.CustomerMapper;
+import com.gd.sakila.vo.Address;
+import com.gd.sakila.vo.Customer;
+import com.gd.sakila.vo.CustomerForm;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -17,11 +21,32 @@ import lombok.extern.slf4j.Slf4j;
 @Transactional
 public class CustomerService {
 	@Autowired CustomerMapper customerMapper;
+	@Autowired AddressMapper addressMapper;
 	
 	public void modifyCustomerActiveByScheduler() {
 		log.debug("▶▶▶▶▶▶▶▶▶▶▶ modifyCustomerActiveByScheduler() 실행");
 		int row = customerMapper.updateCustomerActiveByScheduler();
 		log.debug("▶▶▶▶▶▶▶▶▶▶▶ 휴면고객 처리 행수 : "+row);
+	}
+	
+	// addCustomer + address 트랜잭션 Service
+	public void addCustomer(CustomerForm customerForm) {
+		
+		// Insert address
+		Address address = customerForm.getAddress();
+		log.debug("▶▶▶▶▶▶▶▶▶▶▶ addCustomer() address : "+address);
+		addressMapper.insertAdress(address);
+		
+		// 생성된 Id 가져오기
+		int addressId = customerForm.getAddress().getAddressId();
+		log.debug("▶▶▶▶▶▶▶▶▶▶▶ addCustomer() addressId : "+addressId);
+	
+		// 가져온 Id 주입후 Insert 실행
+		Customer customer = customerForm.getCustomer();
+		customer.setAddressId(addressId);
+		log.debug("▶▶▶▶▶▶▶▶▶▶▶ addCustomer() customer : "+customer);
+		
+		customerMapper.insertCustomer(customer);
 	}
 	
 	// 고객List Service (black,vip list)

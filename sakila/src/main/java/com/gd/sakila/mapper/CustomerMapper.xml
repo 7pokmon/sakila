@@ -1,6 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gd.sakila.mapper.CustomerMapper">
+	
+	<insert id="insertCustomer"
+			parameterType="com.gd.sakila.vo.Customer">
+		INSERT INTO
+			customer(
+				store_id,
+				first_name,
+				last_name,
+				email,
+				address_id,
+				active,
+				create_date
+			) 
+			VALUES(
+				#{storeId},
+				#{firstName},
+				#{lastName},
+				#{email},
+				#{addressId},
+				1,
+				NOW()
+			)
+	</insert>
+	
 	<update id="updateCustomerActiveByScheduler">
 		UPDATE customer c,
 			   (SELECT customer_id, MAX(rental_date), DATEDIFF(NOW(), MAX(rental_date))
@@ -49,7 +73,7 @@
                     	DATEDIFF(r.return_date, r.rental_date) > f.rental_duration
                     	GROUP BY p.customer_id
             			<!-- 횟수가 10회가 넘어간 고객ID BLACK표시, 아니면 ''-->
-            			HAVING COUNT(p.customer_id) >= 10), 'BLACK', '') blackList,
+            			HAVING COUNT(p.customer_id) >= 15), 'BLACK', '') blackList,
  			<!-- VIP -->
    			if(customer_id 
    				IN(
@@ -57,7 +81,7 @@
            			FROM payment p
                     <!-- 한달에 5회이상, 10달러이상 사용한 고객 VIP표시 아니면 '' -->
                     WHERE 
-                    	DATE(p.payment_date) BETWEEN DATE_SUB(CURRENT_DATE(), INTERVAL 1 MONTH) AND CURRENT_DATE()
+                    	DATE(p.payment_date) BETWEEN DATE_SUB('2005-06-01', INTERVAL 1 MONTH) AND '2005-06-01'
                     	GROUP BY customer_id
                      	HAVING SUM(p.amount) > 10
                     AND 
@@ -80,7 +104,7 @@
 			resultType="java.util.Map"
 			parameterType="Integer">
 		SELECT 
-	      	p.customer_id customerId, 
+	      cl.ID customerId, 
 			cl.SID storeId,
 			cl.name name,
 			SUM(p.amount) sumAmount, 
@@ -90,11 +114,11 @@
 			cl.phone phone,
 			cl.notes active 
    		FROM 
-   			payment p
-      	LEFT JOIN customer_list cl 
+   			customer_list cl
+      	LEFT JOIN payment p 
       		ON cl.ID = p.customer_id
       	WHERE 
-      		customer_id = #{customerId}
+      		cl.ID = #{customerId}
 		GROUP BY p.customer_id
 	</select>
 	<!-- 고객별 대여리스트 -->
@@ -124,5 +148,6 @@
 			ON f.film_id = i.film_id 
 		WHERE 
 			customer_id = #{customerId} 
+		ORDER BY r.return_date ASC
 	</select>
 </mapper>

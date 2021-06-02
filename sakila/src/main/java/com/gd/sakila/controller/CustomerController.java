@@ -7,10 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.gd.sakila.service.CustomerService;
+import com.gd.sakila.vo.CustomerForm;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -19,6 +21,19 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/admin")
 public class CustomerController {
 	@Autowired CustomerService customerService;
+	
+	// addCustomer + address form
+	@GetMapping("/addCustomer")
+	public String addCustomer() {
+		return "addCustomer";
+	}
+	// addCustomer + address action
+	@PostMapping("/addCustomer")
+	public String addCustomer(CustomerForm customerForm) {
+		log.debug("▶▶▶▶▶▶▶▶▶▶▶ customerForm : "+customerForm);
+		customerService.addCustomer(customerForm);
+		return "redirect:/admin/getCustomerList";
+	}
 	
 	// 고객상세정보(대여리스트+총지불금액)
 	@GetMapping("/getCustomerOne")

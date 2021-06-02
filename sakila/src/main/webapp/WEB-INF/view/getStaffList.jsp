@@ -53,6 +53,7 @@
 	</table>
 	<div>
 		<a class="btn btn-default" href="${pageContext.request.contextPath}/home">돌아가기</a>
+		<a class="btn btn-default" href="${pageContext.request.contextPath}/admin/addStaff">직원추가</a>
 	</div>
 	<ul class="pager">
         <c:if test="${currentPage > 1}">
