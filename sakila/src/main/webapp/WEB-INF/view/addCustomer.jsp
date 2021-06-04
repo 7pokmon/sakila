@@ -45,6 +45,38 @@ $(document).ready(function(){
 			}
 		}); // city 목록을 받아와서 city select 태그안에 option태그를 추가
 	});
+	
+	// form 유효성검사 공백만 처리..
+	$('#btn').click(function() {
+		if ($('#firstName').val() == '') {
+            alert('firstName을 입력하세요');
+            $('#firstName').focus();
+		} else if($('#lastName').val() == '') {
+			alert('lastName을 입력하세요');
+            $('#lastName').focus();
+		} else if($('#email').val() == '') {
+			alert('email을 입력하세요');
+            $('#email').focus();
+		} else if($('#city').val() == '') {
+			alert('city을 입력하세요');
+            $('#city').focus();
+		} else if($('#address').val() == '') {
+			alert('address을 입력하세요');
+            $('#address').focus();
+		} else if($('#district').val() == '') {
+			alert('district을 입력하세요');
+            $('#district').focus();
+		} else if($('#postalCode').val() == '') {
+			alert('postalCode을 입력하세요');
+            $('#postalCode').focus();
+		} else if($('#phone').val() == '') {
+			alert('phone을 입력하세요');
+            $('#phone').focus();
+		} else {
+			 $('#addForm').submit();
+		}
+		
+	});
 });
 </script>
 </head>
@@ -99,7 +131,7 @@ $(document).ready(function(){
             		<td><input class="form-control" name="address.phone" id="phone" type="text"></td>
             	</tr>
 			</table>
-            <button id="btn" class="btn btn-secondary">add</button>
+            <button id="btn" class="btn btn-secondary" type="button">add</button>
         </form>
     </div>
 </body>

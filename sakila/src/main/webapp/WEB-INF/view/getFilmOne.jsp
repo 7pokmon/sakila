@@ -81,6 +81,7 @@
 	</table>
 	<a class="btn btn-default" href="${pageContext.request.contextPath}/admin/modifyFilm?filmId=${filmOne.filmId}">수정</a>
 	<a class="btn btn-default" href="${pageContext.request.contextPath}/admin/removeFilm?filmId=${filmOne.filmId}">삭제</a>
+	<a class="btn btn-default" href="${pageContext.request.contextPath}/admin/addInventory?filmId=${filmOne.filmId}">재고추가</a>
 	<a class="btn btn-default" href="${pageContext.request.contextPath}/admin/getFilmList">돌아가기</a>
 </div>
 </body>
