@@ -54,13 +54,10 @@ public class StaffService {
 	}
 	
 	// staffList Service
-	public List<StaffList> getStaffList(int currentPage, int rowPerPage, String SearchWord) {
-		Page page = new Page();
-		page.setBeginRow((currentPage - 1)*rowPerPage); // 시작페이지
-		page.setRowPerPage(rowPerPage);					// 현재페이지
-		page.setSearchWord(SearchWord);					// 검색어
+	public List<StaffList> getStaffList(int storeId) {
+		log.debug("▶▶▶▶▶▶▶▶▶▶▶ getStaffList() storeId : "+storeId);
 		
-		return staffMapper.selectStaffList(page);
+		return staffMapper.selectStaffList(storeId);
 	}
 	
 }

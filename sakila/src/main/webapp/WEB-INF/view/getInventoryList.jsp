@@ -59,7 +59,7 @@
 								<td>${i.rating}</td>
 								<td>
 									<c:if test="${i.rentalDate != 'T'}">
-										<a class="btn btn-default" href="${pageContext.request.contextPath}/admin/modifyRentalDate?rentalId=${i.rentalId}">반납</a>
+										<a class="btn btn-default" href="${pageContext.request.contextPath}/admin/modifyRentalDate?rentalId=${i.rentalId}&amount=${i.rentalRate}&overdue=${i.overdue}">반납</a>
 									</c:if>
 								</td>
 								<td>${i.overdue}</td>

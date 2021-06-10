@@ -18,7 +18,7 @@ import com.gd.sakila.vo.StaffList;
 @Mapper // mapper.xml을 찾아서 메서드명과 mapper의 id명이 같으면 합쳐서 메서드 오버라이딩을 한다
 public interface StaffMapper {
 	Staff selectStaffByLogin(Staff staff);
-	List<StaffList> selectStaffList(Page page);
+	List<StaffList> selectStaffList(int storeId);
 	
 	int insertStaff(Staff staff);
 }

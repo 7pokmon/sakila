@@ -15,7 +15,7 @@
    			f.rating rating,
     		if(r.rental_date IS NULL, 'T', '') rentalDate,
 		   	if(r.return_date IS NULL, 'T', '') returnDate,
-		   	DATEDIFF(CURRENT_DATE(), r.rental_date) - f.rental_duration overdue
+		   	if(DATEDIFF(NOW(), r.rental_date)-CAST(f.rental_duration AS SIGNED)>0,DATEDIFF(NOW(), r.rental_date)-CAST(f.rental_duration AS SIGNED),0) overdue
 		FROM
 		   inventory i
 		LEFT JOIN(
@@ -100,4 +100,18 @@
 				#{storeId}
 			)
 	</insert>
+	<select id="selectAmountByInventoryId" 
+			parameterType="Integer" 
+			resultType="java.util.Map">
+		SELECT
+			f.rental_rate amount,
+			f.rental_duration rentalDuration,
+			f.rating rating
+		FROM
+			inventory i 
+		LEFT JOIN film f 
+			ON i.film_id = f.film_id 
+		WHERE
+			i.inventory_id = #{inventoryId}
+	</select>
 </mapper>

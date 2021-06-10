@@ -1,6 +1,7 @@
 package com.gd.sakila.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,5 +21,10 @@ public class CategoryService {
 	// categoryList Service
 	public List<Category> getCategoryList() {
 		return categoryMapper.selectCategoryNameList();
+	}
+	
+	// categorySalseList Service
+	public List<Map<String, Object>> getCategorySales() {
+		return categoryMapper.selectCategorySales();
 	}
 }

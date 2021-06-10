@@ -39,19 +39,13 @@ public class StaffController {
 	
 	@GetMapping("/getStaffList")
 	public String getStaffList(Model model,
-							   @RequestParam(value = "currentPage", defaultValue = "1") int currentPage,
-							   @RequestParam(value = "rowPerPage", defaultValue = "10") int rowPerPage,
-							   @RequestParam(value = "searchWord", required = false) String searchWord) {
-		log.debug("▶▶▶▶▶▶▶▶▶▶▶ getStaffList() currentPage : "+currentPage);
-		log.debug("▶▶▶▶▶▶▶▶▶▶▶ getStaffList() rowPerPage : "+rowPerPage);
-		log.debug("▶▶▶▶▶▶▶▶▶▶▶ getStaffList() searchWord : "+searchWord);
+							   @RequestParam(value = "storeId", defaultValue = "0") int storeId) {
+		log.debug("▶▶▶▶▶▶▶▶▶▶▶ getStaffList() storeId : "+storeId);
 		
-		List<StaffList> staffList = staffService.getStaffList(currentPage, rowPerPage, searchWord);
+		List<StaffList> staffList = staffService.getStaffList(storeId);
 		log.debug("▶▶▶▶▶▶▶▶▶▶▶ getStaffList() staffList : "+staffList.toString());
 		
-		model.addAttribute("currentPage", currentPage);
-		// model.addAttribute("lastPage", map.get("lastPage")); 아직 가공하지 않은상태
-		model.addAttribute("searchWord", searchWord);
+		model.addAttribute("storeId", storeId);
 		model.addAttribute("staffList", staffList);
 		
 		return "getStaffList";

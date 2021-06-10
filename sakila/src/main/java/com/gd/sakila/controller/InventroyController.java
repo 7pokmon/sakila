@@ -59,9 +59,16 @@ public class InventroyController {
 		return "redirect:/admin/getInventoryList";
 	}
 	@GetMapping("/modifyRentalDate")
-	public String modifyRentalDate(@RequestParam(value = "rentalId", required = true) int rentalId) {
+	public String modifyRentalDate(@RequestParam(value = "rentalId", required = true) int rentalId,
+									@RequestParam(value = "amount", required = true) double amount,
+									@RequestParam(value = "overdue", required = true) int overdue) {
 		log.debug("▶▶▶▶▶▶▶▶▶▶▶ rentalId : 업데이트 실행"+rentalId);
-		inventoryService.modifyReturnDate(rentalId);
+		Map<String, Object> map = new HashMap<>();
+		map.put("rentalId", rentalId);
+		map.put("amount", amount);
+		map.put("overdue", overdue);
+		
+		inventoryService.modifyReturnDate(map);
 		return "redirect:/admin/getInventoryList";
 	}
 	

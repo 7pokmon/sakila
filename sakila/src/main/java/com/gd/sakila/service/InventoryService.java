@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.gd.sakila.mapper.InventoryMapper;
+import com.gd.sakila.mapper.PaymentMapper;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -17,6 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 @Transactional
 public class InventoryService {
 	@Autowired InventoryMapper inventoryMapper;
+	@Autowired PaymentMapper paymentMapper;
 	
 	// insertInventory Service 
 	public void addInventory(Map<String, Object> paramMap) {
@@ -28,14 +30,19 @@ public class InventoryService {
 		// count 횟수만큼 반복해서 재고추가
 		for(int i=0; i<count; i++) {
 			inventoryMapper.insertInventory(paramMap);
-		}
-		
+		}	
 	}
 	
-	// updateReturnDate Service
-	public void modifyReturnDate(int rentalId) {
+	// updateReturnDate + updatePayment Service
+	public void modifyReturnDate(Map<String, Object> paramMap) {
+		log.debug("▶▶▶▶▶▶▶▶▶▶▶ modifyReturnDate() paramMap : "+paramMap);
+
+		int rentalId = (Integer)paramMap.get("rentalId");
 		log.debug("▶▶▶▶▶▶▶▶▶▶▶ modifyReturnDate() rentalId : "+rentalId);
+		// 반납
 		inventoryMapper.updateReturnDate(rentalId);
+		// 반납후 payment table amount 수정
+		paymentMapper.updateAmount(paramMap);
 	}
 	
 	// inventoryId : rentalList Service

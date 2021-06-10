@@ -17,12 +17,15 @@
 <body>
 <div class="container">
 	<h1>STAFF LIST</h1>
-	<!-- 검색어 입력창 -->
-    <form action="/admin/getStaffList" method="get">
-        <label for="searchWord">검색어(제목) :</label> 
-        <input name="searchWord" type="text">
-        <button type="submit">검색</button>
-    </form>
+<form action="${pageContext.request.contextPath}/admin/getStaffList">
+	    <label for="storeId">Store : </label> 
+	    <select name="storeId" id="storeId">
+	    	<option value="">전체</option>
+	    	<option value="1">1</option>
+	    	<option value="2">2</option>
+	    </select>
+    	<button class="btn btn-default">보기</button>
+ </form>
 	<table  class="table table-striped">
         <thead>
             <tr>
@@ -55,14 +58,6 @@
 		<a class="btn btn-default" href="${pageContext.request.contextPath}/home">돌아가기</a>
 		<a class="btn btn-default" href="${pageContext.request.contextPath}/admin/addStaff">직원추가</a>
 	</div>
-	<ul class="pager">
-        <c:if test="${currentPage > 1}">
-            <li class="previous"><a href="${pageContext.request.contextPath}/admin/getStaffList?currentPage=${currentPage-1}&searchWord=${searchWord}">이전</a></li>
-        </c:if>
-        <c:if test="${currentPage < lastPage}">
-            <li class="next"><a href="${pageContext.request.contextPath}/admin/getStaffList?currentPage=${currentPage+1}&searchWord=${searchWord}">다음</a></li>
-        </c:if>
-    </ul>
 </div>	
 </body>
 </html>

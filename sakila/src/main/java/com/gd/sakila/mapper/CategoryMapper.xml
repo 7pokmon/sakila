@@ -9,4 +9,13 @@
 		FROM
 			category	
 	</select>
+	<!-- 카테고리별 판매량 -->
+	<select id="selectCategorySales"
+			resultType="java.util.Map">
+		SELECT 
+			category,
+			total_sales sales
+		FROM
+			sales_by_film_category
+	</select>
 </mapper>

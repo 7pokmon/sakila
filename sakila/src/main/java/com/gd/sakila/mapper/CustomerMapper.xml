@@ -125,7 +125,6 @@
 	<select id="selectRentalListByCustomer"
 			resultType="java.util.Map"
 			parameterType="Integer">
-		
 		SELECT 
 			r.rental_id rentalId,
 			f.film_id FID,

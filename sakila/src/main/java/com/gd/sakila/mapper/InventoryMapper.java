@@ -12,4 +12,5 @@ public interface InventoryMapper {
 	int selectInventoryTotal(Map<String, Object> map);
 	int updateReturnDate(int rentalId);
 	int insertInventory(Map<String, Object> map);
+	List<Map<String, Object>> selectAmountByInventoryId(int inventoryId);
 }

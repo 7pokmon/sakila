@@ -54,6 +54,7 @@
        		</tbody>
      	</table>
      	<h3>영화 대여 기록</h3>
+     	<a href="${pageContext.request.contextPath}/admin/addRental?storeId=${customerOne.storeId}&customerId=${customerOne.customerId}">rental</a>
      	<table class="table table-striped">
      		<tr>
      			<td>rentalId</td>
