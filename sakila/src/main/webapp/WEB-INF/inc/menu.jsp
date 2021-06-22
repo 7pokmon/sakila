@@ -1,11 +1,37 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<div>
-	<a href="${pageContext.request.contextPath}/admin/getBoardList">게시판</a>
-	<a href="${pageContext.request.contextPath}/admin/getActorList">배우정보 리스트</a>
-	<a href="${pageContext.request.contextPath}/admin/getFilmList">영화목록</a>
-	<a href="${pageContext.request.contextPath}/admin/getInventoryList">재고목록</a>
-	<a href="${pageContext.request.contextPath}/admin/getStaffList">직원리스트</a>
-	<a href="${pageContext.request.contextPath}/admin/getCustomerList">고객리스트</a>
-	<a href="${pageContext.request.contextPath}/admin/logout">로그아웃</a>
+<div id="sidebar" class="active">
+	<div class="sidebar-wrapper active">
+    	<div class="sidebar-header">        	
+       		<div class="row">
+       			<h1>sakila video</h1>
+				<h6>
+					<a href="${pageContext.request.contextPath}/admin/logout">logout</a>
+				</h6>
+			</div>				
+      	</div>
+      	<div class="sidebar-menu">
+			<ul class="menu">
+			  <li class="sidebar-title">
+			    <a class="nav-link" href="${pageContext.request.contextPath}/home">Home</a>
+			  </li>
+			  <li class="sidebar-title">
+			    <a class="nav-link" href="${pageContext.request.contextPath}/admin/getBoardList">boardList</a>
+			  </li>
+			  <li class="sidebar-title">
+			    <a class="nav-link" href="${pageContext.request.contextPath}/admin/getStaffList">staffList</a>
+			  </li>
+			   <li class="sidebar-title">
+			    <a class="nav-link" href="${pageContext.request.contextPath}/admin/getFilmList">filmList</a>
+			  </li>
+			  <li class="sidebar-title">
+			    <a class="nav-link" href="${pageContext.request.contextPath}/admin/getActorList">actorList</a>
+			  </li>
+			  <li class="sidebar-title">
+			    <a class="nav-link" href="${pageContext.request.contextPath}/admin/getCustomerList">customerList</a>
+			  </li>
+			  <li class="sidebar-title">
+			    <a class="nav-link" href="${pageContext.request.contextPath}/admin/getInventoryList">inventoryList</a>
+			  </li>
+			</ul>
+		</div>
+	</div>
 </div>
