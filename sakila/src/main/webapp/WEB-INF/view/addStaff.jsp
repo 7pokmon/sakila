@@ -5,20 +5,23 @@
 <head>
 <meta charset="UTF-8">
 <title>ADD STAFF</title>
-<!-- bootstrap을 사용하기 위한 CDN주소 -->
-<!-- Latest compiled and minified CSS -->
-
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<!-- Optional theme -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/bootstrap.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/vendors/iconly/bold.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/vendors/bootstrap-icons/bootstrap-icons.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/app.css">
+<link rel="shortcut icon" href="${pageContext.request.contextPath}/assets/images/favicon.svg" type="image/x-icon">
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script>
 $(document).ready(function(){
 	console.log('country 목록');
 	$.ajax({
 		type:'get',
-		url:'/country',
+		url:'${pageContext.request.contextPath}/country',
 		success: function(jsonData) {
 			$('#country').empty();
 			$(jsonData).each(function(index, item) {
@@ -33,7 +36,7 @@ $(document).ready(function(){
 		console.log('city 목록');
 		$.ajax({
 			type:'get',
-			url:'/city',
+			url:'${pageContext.request.contextPath}/city',
 			data:{countryId : $('#country').val()},
 			success: function(jsonData) {
 				$('#city').empty();
@@ -86,8 +89,22 @@ $(document).ready(function(){
 </script>
 </head>
 <body>
-	 <div class="container">
-        <h1>ADD STAFF</h1>
+	 <div id="main">
+		<div>
+			<!-- include -->
+			<jsp:include
+				page="/WEB-INF/inc/menu.jsp"></jsp:include>
+		</div>
+		<header class="mb-3">
+			<a href="#" class="burger-btn d-block d-xl-none"> <i
+				class="bi bi-justify fs-3"></i>
+			</a>
+		</header>
+		<div class="row" id="table-hover-row">
+		<div class="card">
+		<div class="page-heading">
+			<h1>ADD STAFF</h1>
+		</div>
         <form id="addForm" action="${pageContext.request.contextPath}/admin/addStaff" method="post">    
             <table class="table table-hover">
             	<tr>
@@ -151,5 +168,16 @@ $(document).ready(function(){
             <button id="btn" class="btn btn-secondary" type="button">add</button>
         </form>
     </div>
+</div>
+</div>
+<script
+		src="${pageContext.request.contextPath}/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/assets/js/bootstrap.bundle.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/assets/vendors/apexcharts/apexcharts.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/assets/js/pages/dashboard.js"></script>
+	<script src="${pageContext.request.contextPath}/assets/js/main.js"></script>
 </body>
 </html>

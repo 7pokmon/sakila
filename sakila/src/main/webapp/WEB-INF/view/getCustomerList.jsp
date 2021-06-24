@@ -65,14 +65,16 @@
 		</tbody>
 	</table>
 	<a class="btn btn-primary" href="${pageContext.request.contextPath}/admin/addCustomer">addCustomer</a>
-	<ul class="pager">
+	<nav aria-label="Page navigation example">
+    <ul class="pagination pagination-primary">
         <c:if test="${currentPage > 1}">
-            <li class="previous"><a href="${pageContext.request.contextPath}/admin/getCustomerList?currentPage=${currentPage-1}&searchWord=${searchWord}">이전</a></li>
+            <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/admin/getCustomerList?currentPage=${currentPage-1}&searchWord=${searchWord}">이전</a></li>
         </c:if>
         <c:if test="${currentPage < lastPage}">
-            <li class="next"><a href="${pageContext.request.contextPath}/admin/getCustomerList?currentPage=${currentPage+1}&searchWord=${searchWord}">다음</a></li>
+            <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/admin/getCustomerList?currentPage=${currentPage+1}&searchWord=${searchWord}">다음</a></li>
         </c:if>
     </ul>
+    </nav>
 </div>
 </div>
 </div>

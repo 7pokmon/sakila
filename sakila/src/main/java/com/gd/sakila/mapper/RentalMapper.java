@@ -11,5 +11,5 @@ public interface RentalMapper {
 	int insertRental(Map<String, Object> map);
 	int returnFilm(int inventoryId);
 	List<Integer> selectRentalId(int inventoryId);
-	List<Integer> selectRentalMonthCnt(int year);
+	List<Map<String, Object>> selectRentalMonthCnt(int year);
 }

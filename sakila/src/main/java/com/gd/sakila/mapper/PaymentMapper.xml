@@ -30,4 +30,18 @@
 				NOW()
 			)
 	</insert>
+	<!-- 년도별 총 대여료 차트 -->
+	<select id="selectSumPayment" 
+			resultType="java.util.Map" 
+			parameterType="Integer">		
+		SELECT 
+			MONTH(payment_date) month, 
+			SUM(amount) sum 
+		FROM 
+			payment 
+		WHERE 
+			YEAR(payment_date) = #{year}
+		GROUP BY 
+			MONTH(payment_date)
+	</select>
 </mapper>

@@ -5,13 +5,16 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<!-- bootstrap을 사용하기 위한 CDN주소 -->
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-<!-- Optional theme -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-<!-- Latest compiled and minified JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/bootstrap.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/vendors/iconly/bold.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/vendors/bootstrap-icons/bootstrap-icons.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/app.css">
+<link rel="shortcut icon" href="${pageContext.request.contextPath}/assets/images/favicon.svg" type="image/x-icon">
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script>
 $(document).ready(function() {
@@ -24,16 +27,41 @@ $(document).ready(function() {
 </script>
 </head>
 <body>
-<div class="container">
-	<h1>REMOVE BOARD</h1>
+<div id="main">
+		<div>
+			<!-- include -->
+			<jsp:include
+				page="/WEB-INF/inc/menu.jsp"></jsp:include>
+		</div>
+		<header class="mb-3">
+			<a href="#" class="burger-btn d-block d-xl-none"> <i
+				class="bi bi-justify fs-3"></i>
+			</a>
+		</header>
+		<div class="row" id="table-hover-row">
+		<div class="card">
+		<div class="page-heading">
+			<h1>REMOVE BOARD</h1>
+		</div>
 	<form id="removeForm" action="${pageContext.request.contextPath}/admin/removeBoard" method="post">
 		<input type="hidden" name="boardId" value="${boardId}">
 		<div class="form-group">
 			<label>boardPw: </label>
 			<input type="password" id="boardPw" name="boardPw">
 		</div>
-		 <input class="btn btn-default" type="button" id="btn" value="삭제" />
+		 <input class="btn btn-secondary" type="button" id="btn" value="삭제" />
 	</form>
-</div>	
+</div>
+</div>
+</div>
+<script
+		src="${pageContext.request.contextPath}/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/assets/js/bootstrap.bundle.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/assets/vendors/apexcharts/apexcharts.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/assets/js/pages/dashboard.js"></script>
+	<script src="${pageContext.request.contextPath}/assets/js/main.js"></script>
 </body>
 </html>

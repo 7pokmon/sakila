@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.gd.sakila.mapper.InventoryMapper;
+import com.gd.sakila.mapper.PaymentMapper;
 import com.gd.sakila.service.CategoryService;
 import com.gd.sakila.service.CityService;
 import com.gd.sakila.service.CountryService;
@@ -23,9 +24,15 @@ public class restapiController {
 	@Autowired InventoryMapper inventoryMapper;
 	@Autowired CategoryService categoryService;
 	@Autowired RentalService rentalService;
+	@Autowired PaymentMapper paymentMapper;
+	
+	@GetMapping("/payment")
+	public List<Map<String, Object>> payment(@RequestParam(value="year", defaultValue = "2005") int year){
+		return paymentMapper.selectSumPayment(year);
+	}
 	
 	@GetMapping("/rental")
-	public List<Integer> rental(@RequestParam(value = "year", defaultValue = "2005") int year){
+	public List<Map<String, Object>> rental(@RequestParam(value = "year", defaultValue = "2005") int year){
 		return rentalService.getRentalMonthCnt(year);
 	}
 	

@@ -67,15 +67,16 @@
             </c:forEach>
         </tbody>
     </table>
-    
-    <ul class="pager">
+    <nav aria-label="Page navigation example">
+    <ul class="pagination pagination-primary">
         <c:if test="${currentPage > 1}">
-            <li class="previous"><a href="${pageContext.request.contextPath}/admin/getBoardList?currentPage=${currentPage-1}&searchWord=${searchWord}">이전</a></li>
+            <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/admin/getBoardList?currentPage=${currentPage-1}&searchWord=${searchWord}">Prev</a></li>
         </c:if>
         <c:if test="${currentPage < lastPage}">
-            <li class="next"><a href="${pageContext.request.contextPath}/admin/getBoardList?currentPage=${currentPage+1}&searchWord=${searchWord}">다음</a></li>
+            <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/admin/getBoardList?currentPage=${currentPage+1}&searchWord=${searchWord}">Next</a></li>
         </c:if>
     </ul>
+    </nav>
 </div>
 </div>
 </div>

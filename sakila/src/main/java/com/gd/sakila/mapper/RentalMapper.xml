@@ -3,12 +3,12 @@
 <mapper namespace="com.gd.sakila.mapper.RentalMapper">
 	<select id="selectRentalMonthCnt"
 			parameterType="Integer"
-			resultType="Integer">
-		SELECT
-			COUNT(MONTH(rental_date)) cnt,
-			MONTH(rental_date) month
-		FROM
-			rental
+			resultType="java.util.Map">
+		SELECT 
+			MONTH(rental_date) month, 
+			COUNT(rental_id) count 
+		FROM 
+			rental 
 		WHERE 
 			YEAR(rental_date) = #{year}
 		GROUP BY MONTH(rental_date)

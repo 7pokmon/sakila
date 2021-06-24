@@ -36,7 +36,7 @@ public class RentalService {
 	}
 	
 	// 월별 rental Service
-	public List<Integer> getRentalMonthCnt(int year){
+	public List<Map<String, Object>> getRentalMonthCnt(int year){
 		return rentalMapper.selectRentalMonthCnt(year);
 	}
 }

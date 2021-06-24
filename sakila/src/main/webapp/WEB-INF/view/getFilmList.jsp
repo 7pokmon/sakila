@@ -115,19 +115,19 @@
         	</c:forEach>
         </tbody>
 	</table>
-	
-	 <ul class="pager">
+    <div>
+    	<a class="btn btn-primary" href="${pageContext.request.contextPath}/admin/addFilm">addFilm</a>
+	</div>	
+	  <nav aria-label="Page navigation example">
+    <ul class="pagination pagination-primary">
         <c:if test="${currentPage > 1}">
-            <li class="previous"><a href="${pageContext.request.contextPath}/admin/getFilmList?currentPage=${currentPage-1}&categoryVal=${categoryVal}&priceVal=${priceVal}&ratingVal=${ratingVal}&titleVal=${titleVal}&actorsVal=${actorsVal}">이전</a></li>
+            <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/admin/getFilmList?currentPage=${currentPage-1}&categoryVal=${categoryVal}&priceVal=${priceVal}&ratingVal=${ratingVal}&titleVal=${titleVal}&actorsVal=${actorsVal}">이전</a></li>
         </c:if>
         <c:if test="${currentPage < lastPage}">
-            <li class="next"><a href="${pageContext.request.contextPath}/admin/getFilmList?currentPage=${currentPage+1}&categoryVal=${categoryVal}&priceVal=${priceVal}&ratingVal=${ratingVal}&titleVal=${titleVal}&actorsVal=${actorsVal}">다음</a></li>
+            <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/admin/getFilmList?currentPage=${currentPage+1}&categoryVal=${categoryVal}&priceVal=${priceVal}&ratingVal=${ratingVal}&titleVal=${titleVal}&actorsVal=${actorsVal}">다음</a></li>
         </c:if>
     </ul>
-    <div>
-    	<a class="btn btn-default" href="${pageContext.request.contextPath}/admin/addFilm">addFilm</a>
-		<a class="btn btn-default" href="${pageContext.request.contextPath}/home">돌아가기</a>
-	</div>
+    </nav>
 </div>
 </div>
 </div>
