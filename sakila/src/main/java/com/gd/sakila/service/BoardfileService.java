@@ -40,15 +40,17 @@ public class BoardfileService {
 		// 1) 물리적 파일 저장
 		
 		File temp = new File("");
-		String path = temp.getAbsolutePath(); // 프로젝트 경로
+		String path = temp.getAbsolutePath(); // 프로젝트 경로ㅊ
 		// 확장자
 		int p = multipartFile.getOriginalFilename().lastIndexOf(".");
-		String ext = multipartFile.getOriginalFilename().substring(p);
+		String ext = multipartFile.getOriginalFilename().substring(p).toLowerCase();
 		// 확장자를 제외한 파일이름
 		String prename = UUID.randomUUID().toString().replace("-", "");
-		
+		/*
+		aws경로 변경으로인한 주석
 		File file = new File(path + "\\src\\main\\webapp\\resource\\" + prename+ext);
-		
+		*/
+		File file = new File(path + "/home/ubuntu/tomcat9/webapps/resource/"+prename+ext);
 		try {
 			multipartFile.transferTo(file); // multipartFile안에 파일을 빈file로 복사
 		} catch(Exception e) {
@@ -63,7 +65,8 @@ public class BoardfileService {
 		boardfile.setBoardfileType(multipartFile.getContentType());
 		
 		int row = boardfileMapper.insertBoardfile(boardfile);
-
+		
+		
 		return row;
 	}
 }

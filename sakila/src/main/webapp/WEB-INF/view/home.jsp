@@ -137,47 +137,6 @@ $(document).ready(function(){
 			  data: data2,
 			};
 	
-	$('#btn').click(function(){
-		rentalY = [0,0,0,0,0,0,0,0,0,0,0,0];
-		
-		$('#rentalChart').remove();
-		$('#rentalChartSpan').append('<canvas id="rentalChart"></canvas>');
-		
-		if($('#year').val() != ""){
-			console.log($('#year').val());
-			$.ajax({
-				type:'get',
-				url:'${pageContext.request.contextPath}/rental',
-				data:{year : $('#year').val()},
-				success: function(jsonData){
-					$(jsonData).each(function(index, item){
-						rentalY[item.month-1]=item.count;
-						console.log(rentalY[item.month]);
-					});
-					console.log(rentalY);
-					let rentalChart = new Chart(document.getElementById('rentalChart'),config2);	
-				}
-				
-			});
-			
-			let data2 = {
-					  labels: rentalX,
-					  datasets: [{
-					    label: '월별 대여 수',
-					    data: rentalY,
-					    borderColor: 'rgb(255, 99, 132, 0.2)',
-					    fill: false			
-					  }]
-					};
-			
-			let config2 = {
-					  type: 'line',
-					  data: data2,
-					  beginAtZero: true
-					};
-		}
-		
-	});
 	
 	let paymentX = ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'];
 	let paymentY = [0,0,0,0,0,0,0,0,0,0,0,0];
@@ -212,112 +171,7 @@ $(document).ready(function(){
 			  data: data3,
 			};
 	
-	$('#pbtn').click(function(){
-		paymentY = [0,0,0,0,0,0,0,0,0,0,0,0];
-		
-		$('#paymentChart').remove();
-		$('#paymentChartSpan').append('<canvas id="paymentChart"></canvas>');
-		
-		if($('#pyear').val() != ""){
-			console.log($('#pyear').val());
-			$.ajax({
-				type:'get',
-				url:'${pageContext.request.contextPath}/payment',
-				data:{year : $('#pyear').val()},
-				success: function(jsonData){
-					$(jsonData).each(function(index, item){
-						paymentY[item.month-1]=item.sum;
-						console.log(paymentY[item.month]);
-					});
-					console.log(paymentY);
-					let paymentChart = new Chart(document.getElementById('paymentChart'),config3);	
-				}
-				
-			});
-			
-			let data3 = {
-					  labels: paymentX,
-					  datasets: [{
-					    label: '월별 대여 금액',
-					    data: paymentY,
-					    borderColor: 'rgb(75, 192, 192, 0.2)',
-					    fill: false			
-					  }]
-					};
-			
-			let config3 = {
-					  type: 'line',
-					  data: data3
-					};
-		}
-		
-	});
 });	
-	/*
-	$(document).ready(
-			function() {
-				console.log("document ready!");
-				
-				//setup edit
-				let category = [];
-				let sales = [];
-				$.ajax({
-					url : '${pageContext.request.contextPath}/category',
-					type : 'get',
-					success : function(json) {
-						$(json).each(function(index, item) { // 0번째 item {"rating":"G", "cnt":178}
-							category.push(item.category);
-							sales.push(item.sales);
-						});
-						// 3. chart view
-						// 차트를 그리는 코드(Bar)
-						var myChart = new Chart(document
-								.getElementById('myChart'), config);
-					}
-				});
-
-				// 1. setup
-				let data = {
-					//데이터 이름 labels
-					labels : category,
-					datasets : [ {
-						label : 'category',
-						// 데이터 값
-						data : sales,
-						// css
-						backgroundColor : [ 'rgba(255, 99, 132, 0.2)',
-								'rgba(255, 159, 64, 0.2)',
-								'rgba(255, 205, 86, 0.2)',
-								'rgba(75, 192, 192, 0.2)',
-								'rgba(54, 162, 235, 0.2)'
-
-						],
-						borderColor : [ 'rgb(255, 99, 132)',
-								'rgb(255, 159, 64)', 'rgb(255, 205, 86)',
-								'rgb(75, 192, 192)', 'rgb(54, 162, 235)' ],
-						borderWidth : 1
-					} ]
-				};
-
-				// 2. config
-				const config = {
-					type : 'bar',
-					data : data,
-					options : {
-						scales : {
-							y : {
-								beginAtZero : true
-							}
-						}
-					},
-				};
-
-				$('#btn').click(function() {
-					console.log("btn click!");
-					//$('#loginForm').submit();
-				});
-			});
-	*/
 </script>
 </head>
 <body>
@@ -390,34 +244,12 @@ $(document).ready(function(){
 		            	<div class="row">
 		               		<div class="col-6 col-lg-6 col-md-6">	
 								<div class="card">
-									<br>
-									<div class="row">
-										<div class="col-1"></div>
-										<div class="col-8">											
-											<input type="text" name="year" id="year" class="form-control" >
-										</div>
-										<div class="col-3">
-											<button id="btn" type="button" class="btn btn-secondary">보기</button>
-										</div>
-									</div>
-									<br>
 					 				<span id="rentalChartSpan"><canvas id="rentalChart"></canvas></span>
 					 				<br>
 								</div>
 							</div>
 							<div class="col-6 col-lg-6 col-md-6">	
 								<div class="card">
-									<br>
-									<div class="row">
-										<div class="col-1"></div>
-										<div class="col-8">				
-											<input type="text" name="pyear" id="pyear" class="form-control">
-										</div>
-										<div class="col-3">
-											<button id="pbtn" type="button" class="btn btn-secondary">보기</button>
-										</div>
-									</div>
-									<br>
 					 				<span id="paymentChartSpan"><canvas id="paymentChart"></canvas></span>
 					 				<br>
 								</div>

@@ -32,7 +32,8 @@
 		<div class="row" id="table-hover-row">
 		<div class="card">
 		<div class="page-heading">
-			<h1>GET INVENTORY LIST</h1>
+			<h1>재고 목록</h1>
+			<p>재고별 영화상세정보, 대여기록 확인이 가능하고 재고별 반납이 가능합니다 </p>
 		</div>
 	<!-- 검색어 입력창 -->
     <form action="/admin/getInventoryList" method="get">

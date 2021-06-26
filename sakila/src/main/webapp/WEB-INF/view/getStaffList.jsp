@@ -34,7 +34,7 @@
 		<div class="row" id="table-hover-row">
 		<div class="card">
 		<div class="page-heading">
-			<h1>GET STAFF LIST</h1>
+			<h1>직원 목록</h1>
 		</div>
 <form action="${pageContext.request.contextPath}/admin/getStaffList">
 	    <label for="storeId">Store : </label> 

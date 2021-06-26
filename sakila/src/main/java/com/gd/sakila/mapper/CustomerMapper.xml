@@ -96,6 +96,8 @@
 	        	AND store_id = ${storeId}
 	        </if>
       	</where>
+      	ORDER BY
+      		customer_id DESC
 		LIMIT
   			${beginRow}, ${rowPerPage}
 	</select>
@@ -135,7 +137,7 @@
 			<!-- 반환된 기록이 없으면 해당영화의 대여기간 출력, 있으면 '' -->
 			if( (r.return_date IS NULL) ,f.rental_duration,'') filmDuration,
 			<!-- (현재 - 렌탈기간) - 대여기간 출력 -->
-			DATEDIFF(CURRENT_DATE(), r.rental_date)-f.rental_duration overdueDate,
+			DATEDIFF(CURRENT_DATE(), r.rental_date)-CAST(f.rental_duration AS SIGNED) overdueDate,
 			<!-- 반납일이 초과한경우 T, 아니면 '' -->
 			if(r.return_date IS NULL AND DATEDIFF(CURRENT_DATE(), r.rental_date) > f.rental_duration , 'T', '') overdue
 			

@@ -30,13 +30,13 @@
 		<div class="row" id="table-hover-row">
 		<div class="card">
 		<div class="page-heading">
-			<h1>GET CUSTOMER LIST</h1>
+			<h1>고객 목록</h1>
+			<p>고객 상세정보로 들어가 대여 기록 조회와 영화대여가 가능합니다.</p>
 		</div>
 	 <!-- 검색어 입력창 -->
     <form action="/admin/getCustomerList" method="get">
-        <label for="searchWord">검색어(이름) :</label> 
         <input name="searchWord" type="text">
-        <button type="submit">검색</button>
+        <button type="submit" class="btn btn-light rounded-pill">검색</button>
     </form>
     <!-- 지점별  -->
 	<div class="table-responsive">	

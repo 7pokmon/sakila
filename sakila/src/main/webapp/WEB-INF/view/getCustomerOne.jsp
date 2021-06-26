@@ -92,9 +92,7 @@
      				<c:if test="${r.overdue == 'T'}">
      					<td>미반납일 : ${r.overdueDate} 초과</td>
      				</c:if>
-     				<c:if test="${r.overdue != 'T'}">
-     					<td>반납완료</td>
-     				</c:if>
+
      			</tr>
      		</c:forEach>
      	</table>

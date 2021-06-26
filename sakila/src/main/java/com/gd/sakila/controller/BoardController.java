@@ -2,6 +2,9 @@ package com.gd.sakila.controller;
 
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.gd.sakila.service.BoardService;
 import com.gd.sakila.vo.Board;
 import com.gd.sakila.vo.BoardForm;
+import com.gd.sakila.vo.Staff;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -74,10 +78,17 @@ public class BoardController {
 	
 	// 상세정보
 	@GetMapping("/getBoardOne")
-	public String getBoardOne(Model model, @RequestParam(value = "boardId", required = true) int boardId) {
+	public String getBoardOne(Model model, @RequestParam(value = "boardId", required = true) int boardId,
+								HttpServletRequest request) {
+		
+		HttpSession session = request.getSession();
+		String username = ((Staff)(session.getAttribute("loginStaff"))).getUsername();
+		
 		Map<String, Object> map = boardService.getBoardOne(boardId);
-	    log.debug("▶▶▶▶▶▶▶▶▶▶▶ map : "+map);
-	    model.addAttribute("boardMap", map.get("boardMap")); 			// boardOneList
+		log.debug("▶▶▶▶▶▶▶▶▶▶▶ map : "+map);
+	    
+		model.addAttribute("username", username);
+		model.addAttribute("boardMap", map.get("boardMap")); 			// boardOneList
 	    model.addAttribute("boardfileList", map.get("boardfileList")); 	// boardfileList
 	    model.addAttribute("commentList", map.get("commentList"));		// commentList
 	    return "getBoardOne";
