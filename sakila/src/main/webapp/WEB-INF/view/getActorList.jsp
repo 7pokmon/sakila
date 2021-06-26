@@ -50,7 +50,7 @@
 
 				<div class="row">
 					<!-- 검색어 입력창 -->
-					<form action="/admin/getActorList" method="get">
+					<form action="${pageContext.request.contextPath}/admin/getActorList" method="get">
 						<div class="row">
 							<div class="col-sm-3">
 								<input name="searchWord" type="text" class="form-control">

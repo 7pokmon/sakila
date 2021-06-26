@@ -34,7 +34,7 @@
 			<p>고객 상세정보로 들어가 대여 기록 조회와 영화대여가 가능합니다.</p>
 		</div>
 	 <!-- 검색어 입력창 -->
-    <form action="/admin/getCustomerList" method="get">
+    <form action="${pageContext.request.contextPath}/admin/getCustomerList" method="get">
         <input name="searchWord" type="text">
         <button type="submit" class="btn btn-light rounded-pill">검색</button>
     </form>

@@ -51,7 +51,7 @@
 
 				<div class="row">
 					<!-- 검색어 입력창 -->
-					<form action="/admin/getBoardList" method="get">
+					<form action="${pageContext.request.contextPath}/admin/getBoardList" method="get">
 						<div class="row">
 							<div class="col-sm-3">
 								<input name="searchWord" type="text" class="form-control">

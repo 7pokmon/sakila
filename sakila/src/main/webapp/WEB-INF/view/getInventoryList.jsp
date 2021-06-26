@@ -36,7 +36,7 @@
 			<p>재고별 영화상세정보, 대여기록 확인이 가능하고 재고별 반납이 가능합니다 </p>
 		</div>
 	<!-- 검색어 입력창 -->
-    <form action="/admin/getInventoryList" method="get">
+    <form action="${pageContext.request.contextPath}/admin/getInventoryList" method="get">
         <label for="searchWord">검색어(제목) :</label> 
         <input name="searchWord" type="text">
         <button type="submit">검색</button>

@@ -80,7 +80,7 @@
 								<td><c:forEach var="f" items="${boardfileList}">
 										<div>
 											<a
-												href="${pageContext.request.contextPath}/resource/${f.boardfileName}">${f.boardfileName}</a>
+												href="/resource/${f.boardfileName}">${f.boardfileName}</a>
 
 											<a
 												href="${pageContext.request.contextPath}/admin/removeBoardfile?boardfileId=${f.boardfileId}&boardfileName=${f.boardfileName}&boardId=${boardMap.boardId}">파일삭제</a>
