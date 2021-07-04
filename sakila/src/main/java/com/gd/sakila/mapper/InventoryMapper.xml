@@ -104,6 +104,7 @@
 			parameterType="Integer" 
 			resultType="java.util.Map">
 		SELECT
+			f.title title,
 			f.rental_rate amount,
 			f.rental_duration rentalDuration,
 			f.rating rating

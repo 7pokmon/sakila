@@ -33,6 +33,7 @@ $(document).ready(function(){
 						}
 						// attr 속성추가
 						$('#inventoryId').attr('readonly','readonly');
+						$('#title').append('<input type="text" name="title" value="'+item.title+'" readonly="readonly">');
 						$('#rentalDuration').append('<input type="text" name="rentalDuration" value="'+item.rentalDuration+'" readonly="readonly">');
 						$('#amount').append('<input type="text" name="amount" value="'+item.amount+'" readonly="readonly">');	
 						$('#rentalBtn').append('<button id="btn">대여</button>');
@@ -86,6 +87,12 @@ $(document).ready(function(){
 					<td>inventoryId</td>
 					<td>
 						<input type="text" name="inventoryId" id="inventoryId">
+					</td>
+				</tr>
+				<tr>
+					<td>title</td>
+					<td>
+						<span id="title"></span>
 					</td>
 				</tr>
 				<tr>
